@@ -4,7 +4,7 @@ Next.js 16 storefront for [@f1storenepal](https://www.instagram.com/f1storenepal
 
 Everything on the site is edited in the admin: products, variants and stock, teams, drivers, categories, images, the hero, the announcement strip, delivery fees, payment methods and page copy. Orders land in the admin's **Orders** inbox.
 
-**Docs:** [architecture](docs/architecture.md) · [deploy to Vercel + Neon + R2](docs/deploy/vercel.md) · [env vars and other hosts](docs/deploy/env-vars.md)
+**Docs:** [index](docs/README.md) · [admin guide](docs/admin-guide.md) · [architecture](docs/architecture/overview.md) · [deploy to Vercel + Neon + R2](docs/deploy/vercel.md) · [env vars and other hosts](docs/deploy/env-vars.md)
 
 ## Stack
 
@@ -20,7 +20,7 @@ Nothing is tied to Vercel; no `@vercel/*` packages are used.
 ## Local dev
 
 ```sh
-cp .env.example .env            # fill DATABASE_URL, ADMIN_*, SESSION_SECRET
+cp .env.example .env            # fill DATABASE_URL, ADMIN_PASSWORD, SESSION_SECRET (production template: .env.production.example)
 npm install
 npm run db:migrate              # create tables
 npm run db:seed                 # starter teams, drivers, categories, 12 products (9 Bburago cars with official photos), settings

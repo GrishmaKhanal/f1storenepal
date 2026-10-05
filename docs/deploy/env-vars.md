@@ -2,6 +2,21 @@
 
 Set them in `.env` locally, and in your host's settings in production. Secrets are never `NEXT_PUBLIC_*` and never reach the browser.
 
+Templates in the repo root:
+
+| File | For |
+|---|---|
+| [`.env.example`](../../.env.example) | local dev: `cp .env.example .env` |
+| [`.env.production.example`](../../.env.production.example) | production (Vercel + Neon + R2 shape): paste each key into the host's settings. Never create a real `.env.production` file in the repo. |
+
+Generate the secrets:
+
+```sh
+echo "ADMIN_PATH=/pit-$(openssl rand -hex 4)"
+echo "ADMIN_PASSWORD=$(openssl rand -base64 24)"
+echo "SESSION_SECRET=$(openssl rand -base64 48)"
+```
+
 | Variable | Secret | Needed | Notes |
 |---|---|---|---|
 | `DATABASE_URL` | yes | production | Any Postgres URL. Neon (`*.neon.tech`) uses the serverless driver, anything else node-postgres. |

@@ -1,6 +1,6 @@
 # F1 Store Nepal: design
 
-Date: 2026-10-05. Status: built (see README and docs/architecture.md for the as-built detail).
+Date: 2026-10-05. Status: built (see README and docs/README.md for the as-built detail).
 
 ## Goal
 
