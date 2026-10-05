@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f6f4;
+  --color-card: #ffffff;
+  --color-ink: #111111;
+  --color-night: #0c0c0c;
+  --color-red: #e10600;
+  --color-red-hot: #ff1a12;
+  --color-rule: #e7e5e1;
+  --color-rule-2: #ece9e4;
+  --color-muted: #66625c;
+  --color-faint: #8a857e;
+  --color-ghost: #9a958d;
+  --color-dim: #b9b5ae;
+
+  /* Admin tokens (shared component names with the portfolio admin) */
+  --color-panel: #ffffff;
+  --color-ink-3: #3a3733;
+  --color-ink-4: #55524d;
+  --color-ink-5: #6f6b65;
+  --color-ink-6: #9a958d;
+  --color-rule-strong: #cfcbc4;
+  --color-accent: #e10600;
+  --color-online: #1a9b4b;
+
+  --font-display: var(--font-barlow), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+  a {
+    @apply transition-colors duration-150;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+}
+
+@utility stripes {
+  background: repeating-linear-gradient(135deg, #efede9 0 8px, #f6f5f2 8px 16px);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Page-to-page crossfade via the View Transitions API (no-op where unsupported). */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  .rise {
+    animation: rise 420ms var(--ease-out-soft) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

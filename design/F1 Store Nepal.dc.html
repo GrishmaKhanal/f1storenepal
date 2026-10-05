@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f7f6f4;color:#111;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#111;text-decoration:none}a:hover{color:#e10600}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#f7f6f4">
+
+<sc-if value="{{ showStrip }}" hint-placeholder-val="{{ true }}">
+<div style="background:#111;color:#f7f6f4;font-size:12.5px;letter-spacing:.04em;padding:9px 24px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap">
+<span>Free delivery inside Kathmandu Valley over Rs 5,000</span>
+<span style="color:#e10600">●</span>
+<span>Cash on delivery · eSewa · Khalti</span>
+</div>
+</sc-if>
+
+<header onMouseLeave="{{ closeMenu }}" style="position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e7e5e1">
+<div style="max-width:1320px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:20px">
+<a href="#" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+<img src="assets/logo.jpeg" alt="F1 Store Nepal" style="width:46px;height:46px;border-radius:50%;object-fit:cover"></img>
+<span style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;letter-spacing:.02em;line-height:1">F1 STORE<span style="color:#e10600"> NEPAL</span></span>
+</a>
+<nav style="display:flex;gap:0;flex:1 0 auto;min-width:0;overflow-x:auto;scrollbar-width:none">
+<button onMouseEnter="{{ openDrivers }}" onClick="{{ openDrivers }}" style="border:0;background:none;font:600 14.5px 'DM Sans';padding:26px 12px;white-space:nowrap;cursor:pointer;color:#111;border-bottom:2px solid transparent" style-hover="border-bottom:2px solid #e10600">Shop by Driver</button>
+<button onMouseEnter="{{ openTeams }}" onClick="{{ openTeams }}" style="border:0;background:none;font:600 14.5px 'DM Sans';padding:26px 12px;white-space:nowrap;cursor:pointer;color:#111;border-bottom:2px solid transparent" style-hover="border-bottom:2px solid #e10600">Shop by Team</button>
+<button onMouseEnter="{{ openAcc }}" onClick="{{ openAcc }}" style="border:0;background:none;font:600 14.5px 'DM Sans';padding:26px 12px;white-space:nowrap;cursor:pointer;color:#111;border-bottom:2px solid transparent" style-hover="border-bottom:2px solid #e10600">Accessories</button>
+<button onMouseEnter="{{ closeMenu }}" style="border:0;background:none;font:600 14.5px 'DM Sans';padding:26px 12px;white-space:nowrap;cursor:pointer;color:#e10600">New In</button>
+</nav>
+<div style="display:flex;align-items:center;gap:10px;flex-shrink:1;min-width:0">
+<button aria-label="Search" style="border:1px solid #e2dfda;background:#f2f1ee;width:42px;height:42px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="border-color:#111"><span style="width:13px;height:13px;border:2px solid #111;border-radius:50%;display:block"></span></button>
+<button onClick="{{ toggleCart }}" style="border:0;background:#111;color:#fff;border-radius:999px;height:42px;padding:0 18px;font:600 13.5px 'DM Sans';cursor:pointer;display:flex;align-items:center;gap:8px">Bag <span style="background:#e10600;border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px">{{ cartCount }}</span></button>
+</div>
+</div>
+
+<sc-if value="{{ isDrivers }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid #e7e5e1;box-shadow:0 24px 40px -24px rgba(0,0,0,.18)">
+<div style="max-width:1320px;margin:0 auto;padding:28px 24px 32px;display:grid;grid-template-columns:200px 1fr;gap:40px">
+<div>
+<div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;line-height:1">SHOP BY<br>DRIVER</div>
+<p style="font-size:13.5px;color:#66625c;line-height:1.5;margin:12px 0 0">Every car, cap and keyring for the 2026 grid.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 20px">
+<sc-for list="{{ drivers }}" as="d" hint-placeholder-count="22">
+<a href="#" style="display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #f0eee9;font-size:14px" style-hover="color:#e10600">
+<span style="font-family:'JetBrains Mono';font-size:11px;color:#9a958d;width:20px">{{ d.num }}</span>{{ d.name }}</a>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTeams }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid #e7e5e1;box-shadow:0 24px 40px -24px rgba(0,0,0,.18)">
+<div style="max-width:1320px;margin:0 auto;padding:28px 24px 32px;display:grid;grid-template-columns:200px 1fr;gap:40px">
+<div>
+<div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;line-height:1">SHOP BY<br>TEAM</div>
+<p style="font-size:13.5px;color:#66625c;line-height:1.5;margin:12px 0 0">Eleven constructors. Pick your colours.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+<sc-for list="{{ teams }}" as="t" hint-placeholder-count="11">
+<a href="#" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #ece9e4;border-radius:10px;font-size:14px;font-weight:600" style-hover="border-color:#111">
+<span style="width:6px;height:26px;border-radius:2px;background:{{ t.color }}"></span>{{ t.name }}</a>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAcc }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid #e7e5e1;box-shadow:0 24px 40px -24px rgba(0,0,0,.18)">
+<div style="max-width:1320px;margin:0 auto;padding:28px 24px 32px;display:grid;grid-template-columns:200px 1fr;gap:40px">
+<div>
+<div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;line-height:1">ACCESS-<br>ORIES</div>
+<p style="font-size:13.5px;color:#66625c;line-height:1.5;margin:12px 0 0">Gifts and garage pieces.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+<sc-for list="{{ accessories }}" as="a" hint-placeholder-count="6">
+<a href="#" style="padding:14px;border:1px solid #ece9e4;border-radius:10px;display:flex;flex-direction:column;gap:4px" style-hover="border-color:#111">
+<span style="font-size:14px;font-weight:600">{{ a.name }}</span>
+<span style="font-size:12px;color:#8a857e">{{ a.count }} items</span></a>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+</header>
+
+<sc-if value="{{ heroDark }}" hint-placeholder-val="{{ true }}">
+<section style="background:#0c0c0c;color:#f7f6f4;overflow:hidden">
+<div style="max-width:1320px;margin:0 auto;padding:64px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px;align-items:end">
+<div style="padding-bottom:72px">
+<div style="font-family:'JetBrains Mono';font-size:12px;letter-spacing:.12em;color:#e10600">NEW ARRIVAL · 1:43 SCALE</div>
+<h1 style="font-family:'Barlow Condensed';font-weight:800;font-style:italic;font-size:clamp(64px,8vw,116px);line-height:.88;margin:18px 0 0;letter-spacing:-.01em;text-wrap:balance">HAMILTON'S<br>SF-25, IN<br><span style="color:#e10600">KATHMANDU.</span></h1>
+<p style="font-size:17px;line-height:1.55;color:#b9b5ae;max-width:420px;margin:22px 0 32px">Bburago Formula Racing diecast with clear display case. Limited stock — delivered across Nepal.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button onClick="{{ addHero }}" style="border:0;background:#e10600;color:#fff;font:600 15px 'DM Sans';padding:16px 26px;border-radius:999px;white-space:nowrap;cursor:pointer" style-hover="background:#ff1a12">Add to bag · Rs 5,499</button>
+<button style="border:1px solid #3a3a3a;background:none;color:#f7f6f4;font:600 15px 'DM Sans';padding:16px 26px;border-radius:999px;white-space:nowrap;cursor:pointer" style-hover="border-color:#f7f6f4">All Ferrari</button>
+</div>
+</div>
+<div style="position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center;min-height:420px">
+<div style="position:absolute;right:-40px;bottom:-40px;font-family:'Barlow Condensed';font-weight:800;font-style:italic;font-size:420px;line-height:1;color:#1a1a1a;user-select:none">44</div>
+<div style="position:relative;width:100%;max-width:620px;aspect-ratio:1.5;background:#f7f6f4;border-radius:18px 18px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<img src="assets/sf25-case.png" alt="Ferrari SF-25 Hamilton 1:43" style="width:138%;max-width:none;mix-blend-mode:multiply"></img>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+<sc-if value="{{ heroLight }}" hint-placeholder-val="{{ false }}">
+<section style="background:#fff;border-bottom:1px solid #e7e5e1">
+<div style="max-width:1320px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:40px;align-items:center">
+<div>
+<div style="font-family:'JetBrains Mono';font-size:12px;letter-spacing:.12em;color:#e10600">NEW ARRIVAL · 1:43 SCALE</div>
+<h1 style="font-family:'Barlow Condensed';font-weight:800;font-size:clamp(56px,7vw,100px);line-height:.9;margin:16px 0 0;text-wrap:balance">The 2025 grid, <span style="color:#e10600">boxed</span> and shipped to Nepal.</h1>
+<p style="font-size:17px;line-height:1.55;color:#66625c;max-width:440px;margin:22px 0 30px">Diecast cars, caps and gifts from every team. Order online or DM us on Instagram.</p>
+<button onClick="{{ addHero }}" style="border:0;background:#111;color:#fff;font:600 15px 'DM Sans';padding:16px 26px;border-radius:999px;white-space:nowrap;cursor:pointer" style-hover="background:#e10600">Shop new arrivals</button>
+</div>
+<div style="background:#f7f6f4;border-radius:20px;aspect-ratio:1.3;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<img src="assets/sf25-box.png" alt="Bburago SF-25 boxed" style="width:125%;max-width:none;mix-blend-mode:multiply"></img>
+</div>
+</div>
+</section>
+</sc-if>
+
+<section style="max-width:1320px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+<h2 style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;margin:0">SHOP BY TEAM</h2>
+<a href="#" style="font-size:14px;font-weight:600;border-bottom:1px solid currentColor;padding-bottom:2px">All teams</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
+<sc-for list="{{ teams }}" as="t" hint-placeholder-count="11">
+<a href="#" style="background:#fff;border:1px solid #e7e5e1;border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:28px;transition:transform .15s" style-hover="transform:translateY(-3px);border-color:#111">
+<span style="height:6px;width:44px;border-radius:3px;background:{{ t.color }}"></span>
+<span style="display:flex;justify-content:space-between;align-items:end;gap:8px">
+<span style="font-family:'Barlow Condensed';font-weight:700;font-size:23px;line-height:1">{{ t.name }}</span>
+<span style="font-family:'JetBrains Mono';font-size:11px;color:#9a958d">{{ t.count }}</span>
+</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+<h2 style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;margin:0">SHOP BY DRIVER</h2>
+<a href="#" style="font-size:14px;font-weight:600;border-bottom:1px solid currentColor;padding-bottom:2px">All 22 drivers</a>
+</div>
+<div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);gap:12px;overflow-x:auto;padding-bottom:8px">
+<sc-for list="{{ featuredDrivers }}" as="d" hint-placeholder-count="6">
+<a href="#" style="background:#fff;border:1px solid #e7e5e1;border-radius:14px;overflow:hidden;display:flex;flex-direction:column" style-hover="border-color:#111">
+<div style="aspect-ratio:4/5;position:relative;background:repeating-linear-gradient(135deg,#efede9 0 8px,#f6f5f2 8px 16px);display:flex;align-items:flex-end;padding:14px">
+<span style="position:absolute;top:10px;right:14px;font-family:'Barlow Condensed';font-weight:800;font-style:italic;font-size:64px;line-height:1;color:{{ d.color }}">{{ d.num }}</span>
+<span style="font-family:'JetBrains Mono';font-size:10.5px;color:#9a958d">driver portrait</span>
+</div>
+<div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:3px">
+<span style="font-family:'Barlow Condensed';font-weight:700;font-size:22px;line-height:1">{{ d.name }}</span>
+<span style="font-size:12.5px;color:#8a857e">{{ d.team }}</span>
+</div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+<h2 style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;margin:0">NEW IN</h2>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+<button onClick="{{ tab.select }}" style="border:1px solid {{ tab.border }};background:{{ tab.bg }};color:{{ tab.fg }};font:600 13.5px 'DM Sans';padding:9px 16px;border-radius:999px;cursor:pointer">{{ tab.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">
+<sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="aspect-ratio:1;background:#fff;border:1px solid #e7e5e1;border-radius:14px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}">
+<img src="{{ p.img }}" alt="{{ p.name }}" style="width:150%;max-width:none"></img>
+</sc-if>
+<sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#f2f0ec 0 8px,#fbfaf8 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:11px;color:#9a958d">product shot</div>
+</sc-if>
+<sc-if value="{{ p.tag }}" hint-placeholder-val="{{ false }}">
+<span style="position:absolute;top:12px;left:12px;background:#111;color:#fff;font:600 11px 'DM Sans';letter-spacing:.04em;padding:5px 9px;border-radius:999px">{{ p.tag }}</span>
+</sc-if>
+<button onClick="{{ p.add }}" style="position:absolute;right:12px;bottom:12px;border:0;background:#e10600;color:#fff;width:40px;height:40px;border-radius:50%;font:500 22px 'DM Sans';cursor:pointer;line-height:1" style-hover="background:#111">+</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px;padding:0 2px">
+<span style="display:flex;align-items:center;gap:8px;font-size:12px;color:#8a857e"><span style="width:8px;height:8px;border-radius:50%;background:{{ p.color }}"></span>{{ p.team }} · {{ p.scale }}</span>
+<span style="font-size:15px;font-weight:600;line-height:1.35">{{ p.name }}</span>
+<span style="font-size:15px">{{ p.priceLabel }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:72px 24px 0">
+<h2 style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;margin:0 0 24px">ACCESSORIES</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+<sc-for list="{{ accessories }}" as="a" hint-placeholder-count="6">
+<a href="#" style="background:#111;color:#f7f6f4;border-radius:14px;padding:20px;aspect-ratio:1.2;display:flex;flex-direction:column;justify-content:space-between" style-hover="background:#e10600;color:#fff">
+<span style="font-family:'JetBrains Mono';font-size:11px;opacity:.7">{{ a.count }} items</span>
+<span style="font-family:'Barlow Condensed';font-weight:700;font-size:28px;line-height:1">{{ a.name }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:72px 24px">
+<div style="background:#fff;border:1px solid #e7e5e1;border-radius:20px;padding:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono';font-size:12px;color:#e10600">01</span><span style="font-weight:600;font-size:16px">Order online or on Instagram</span><span style="font-size:14px;color:#66625c;line-height:1.5">Checkout here or DM @f1storenepal.</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono';font-size:12px;color:#e10600">02</span><span style="font-weight:600;font-size:16px">Pay your way</span><span style="font-size:14px;color:#66625c;line-height:1.5">eSewa, Khalti, bank transfer or cash on delivery.</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono';font-size:12px;color:#e10600">03</span><span style="font-weight:600;font-size:16px">Delivered across Nepal</span><span style="font-size:14px;color:#66625c;line-height:1.5">Same-day in the Valley, 2–4 days outside.</span></div>
+</div>
+</section>
+
+<footer style="background:#0c0c0c;color:#b9b5ae">
+<div style="max-width:1320px;margin:0 auto;padding:48px 24px;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;font-size:14px">
+<div style="display:flex;align-items:center;gap:14px">
+<img src="assets/logo.jpeg" alt="" style="width:56px;height:56px;border-radius:50%"></img>
+<span style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;color:#f7f6f4">F1 STORE <span style="color:#e10600">NEPAL</span><br><span style="font-family:'DM Sans';font-weight:400;font-size:13px;color:#8a857e">Cars · Gifts</span></span>
+</div>
+<div style="display:flex;gap:48px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="color:#f7f6f4;font-weight:600">Shop</span><span>By Driver</span><span>By Team</span><span>Accessories</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="color:#f7f6f4;font-weight:600">Help</span><span>Delivery</span><span>Returns</span><span>Contact</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="color:#f7f6f4;font-weight:600">Follow</span><a href="https://www.instagram.com/f1storenepal/" style="color:#b9b5ae">Instagram</a></div>
+</div>
+</div>
+<div style="border-top:1px solid #222;padding:16px 24px;text-align:center;font-size:12px;color:#6d6963">Independent retailer. Not affiliated with Formula 1 or its teams.</div>
+</footer>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:14px 20px;border-radius:999px;font-size:14px;z-index:40;display:flex;gap:10px;align-items:center"><span style="color:#e10600">●</span>{{ toast }}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Dark&quot;,&quot;Light&quot;],&quot;default&quot;:&quot;Dark&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showStrip&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { menu: null, tab: 'All', cart: 0, toast: '' };
+  teams = [
+    ['Ferrari', '#e10600', 34], ['McLaren', '#ff8000', 28], ['Red Bull Racing', '#1e2a78', 26], ['Mercedes', '#00a19c', 22],
+    ['Aston Martin', '#006f62', 14], ['Williams', '#1868db', 11], ['Alpine', '#0093cc', 9], ['Haas', '#9c9fa2', 8],
+    ['Racing Bulls', '#4c6bd8', 7], ['Audi', '#b0b3b5', 6], ['Cadillac', '#2b2b2b', 4]
+  ];
+  drivers = [
+    [44,'Lewis Hamilton','Ferrari'],[16,'Charles Leclerc','Ferrari'],[4,'Lando Norris','McLaren'],[81,'Oscar Piastri','McLaren'],
+    [1,'Max Verstappen','Red Bull Racing'],[6,'Isack Hadjar','Red Bull Racing'],[63,'George Russell','Mercedes'],[12,'Kimi Antonelli','Mercedes'],
+    [14,'Fernando Alonso','Aston Martin'],[18,'Lance Stroll','Aston Martin'],[55,'Carlos Sainz','Williams'],[23,'Alex Albon','Williams'],
+    [10,'Pierre Gasly','Alpine'],[43,'Franco Colapinto','Alpine'],[31,'Esteban Ocon','Haas'],[87,'Oliver Bearman','Haas'],
+    [30,'Liam Lawson','Racing Bulls'],[41,'Arvid Lindblad','Racing Bulls'],[27,'Nico Hülkenberg','Audi'],[5,'Gabriel Bortoleto','Audi'],
+    [11,'Sergio Pérez','Cadillac'],[77,'Valtteri Bottas','Cadillac']
+  ];
+  accessories = [['Caps', 18], ['Keychains', 24], ['Display cases', 6], ['Posters & prints', 15], ['Mugs & bottles', 9], ['Gift sets', 7]];
+  products = [
+    { name: 'Ferrari SF-25 Lewis Hamilton with display case', team: 'Ferrari', scale: '1:43', price: 5499, img: 'assets/sf25-case.png', tag: 'New', cat: 'Diecast' },
+    { name: 'Bburago Formula Racing SF-25 Lewis Hamilton', team: 'Ferrari', scale: '1:43', price: 4299, img: 'assets/sf25-box.png', tag: 'Bestseller', cat: 'Diecast' },
+    { name: 'McLaren MCL39 Lando Norris', team: 'McLaren', scale: '1:43', price: 4299, cat: 'Diecast' },
+    { name: 'Red Bull RB21 Max Verstappen', team: 'Red Bull Racing', scale: '1:43', price: 4299, cat: 'Diecast' },
+    { name: 'Mercedes W16 George Russell', team: 'Mercedes', scale: '1:43', price: 4299, tag: 'Pre-order', cat: 'Diecast' },
+    { name: 'Charles Leclerc driver cap', team: 'Ferrari', scale: 'One size', price: 2499, cat: 'Accessories' },
+    { name: 'Acrylic display case', team: 'Universal', scale: '1:43', price: 1199, cat: 'Accessories' },
+    { name: 'Team keychain set of 5', team: 'Mixed', scale: 'Metal', price: 899, cat: 'Gifts' }
+  ];
+  colorOf(team) { const t = this.teams.find(x => x[0] === team); return t ? t[1] : '#111'; }
+  add(name) {
+    clearTimeout(this._t);
+    this.setState(s => ({ cart: s.cart + 1, toast: name + ' added to bag' }));
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2200);
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+  renderVals() {
+    const { menu, tab, cart, toast } = this.state;
+    const hero = this.props.heroStyle ?? 'Dark';
+    const tabs = ['All', 'Diecast', 'Accessories', 'Gifts'].map(label => {
+      const on = label === tab;
+      return { label, bg: on ? '#111' : 'transparent', fg: on ? '#fff' : '#111', border: on ? '#111' : '#d9d6d0', select: () => this.setState({ tab: label }) };
+    });
+    const products = this.products.filter(p => tab === 'All' || p.cat === tab).map(p => ({
+      ...p, img: p.img || '', noImg: !p.img, tag: p.tag || '', color: this.colorOf(p.team),
+      priceLabel: 'Rs ' + p.price.toLocaleString('en-IN'), add: () => this.add(p.name)
+    }));
+    const drivers = this.drivers.map(([num, name, team]) => ({ num, name, team, color: this.colorOf(team) }));
+    return {
+      showStrip: this.props.showStrip ?? true,
+      heroDark: hero === 'Dark', heroLight: hero === 'Light',
+      isDrivers: menu === 'd', isTeams: menu === 't', isAcc: menu === 'a',
+      openDrivers: () => this.setState({ menu: 'd' }), openTeams: () => this.setState({ menu: 't' }),
+      openAcc: () => this.setState({ menu: 'a' }), closeMenu: () => this.setState({ menu: null }),
+      toggleCart: () => {}, cartCount: cart, toast,
+      addHero: () => this.add('Ferrari SF-25 Hamilton'),
+      teams: this.teams.map(([name, color, count]) => ({ name, color, count })),
+      drivers, featuredDrivers: drivers.filter((_, i) => [0, 2, 4, 6, 1, 3, 11].includes(i)),
+      accessories: this.accessories.map(([name, count]) => ({ name, count })),
+      tabs, products
+    };
+  }
+}
+</script>
+</body>
+</html>
