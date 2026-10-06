@@ -21,7 +21,7 @@ Nothing is tied to Vercel; no `@vercel/*` packages are used.
 
 ```sh
 cp .env.example .env            # fill DATABASE_URL, ADMIN_PASSWORD, SESSION_SECRET (production template: .env.production.example)
-npm install
+npm ci
 npm run db:migrate              # create tables
 npm run db:seed                 # starter teams, drivers, categories, 12 products (9 Bburago cars with official photos), settings
 npm run dev                     # site: http://localhost:3000, admin: http://localhost:3000$ADMIN_PATH
