@@ -25,8 +25,8 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
 
       <Section title="Instagram">
         <div className="grid gap-4 sm:grid-cols-2">
-          <Text name="instagramUrl" label="Instagram link" defaultValue={s.instagramUrl} placeholder="https://www.instagram.com/f1storenepal/" hint="Empty hides every Instagram link and button." />
-          <Text name="instagramHandle" label="Handle" defaultValue={s.instagramHandle} placeholder="@f1storenepal" />
+          <Text name="instagramUrl" label="Instagram link" defaultValue={s.instagramUrl} placeholder="https://www.instagram.com/lightsoutnepal/" hint="Empty hides every Instagram link and button." />
+          <Text name="instagramHandle" label="Handle" defaultValue={s.instagramHandle} placeholder="@lightsoutnepal" />
         </div>
       </Section>
 
@@ -66,6 +66,7 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
         <Area name="deliveryInfo" label="Delivery page" rows={5} defaultValue={s.deliveryInfo} hint="Blank line = new paragraph." />
         <Area name="returnsInfo" label="Returns page" rows={4} defaultValue={s.returnsInfo} />
         <Area name="contactInfo" label="Contact page intro" rows={3} defaultValue={s.contactInfo} />
+        <Area name="footerAbout" label="Footer description" rows={2} defaultValue={s.footerAbout} hint="A line or two under the logo in the footer. Empty = hidden." />
         <Text name="footerDisclaimer" label="Footer note" defaultValue={s.footerDisclaimer} hint="Optional extra line in the footer fine print. The &ldquo;not affiliated with Formula 1&rdquo; notice is always shown, so don&apos;t repeat it here." />
       </Section>
 

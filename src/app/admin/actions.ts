@@ -456,6 +456,7 @@ export async function saveSettings(_: FormState, fd: FormData): Promise<FormStat
       ...defaultSettings,
       storeName: str(fd, "storeName") || defaultSettings.storeName,
       tagline: opt(fd, "tagline"),
+      footerAbout: opt(fd, "footerAbout"),
       location: opt(fd, "location"),
       streetAddress: opt(fd, "streetAddress"),
       phone: opt(fd, "phone"),

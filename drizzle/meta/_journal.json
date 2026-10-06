@@ -15,6 +15,13 @@
       "when": 1791295440655,
       "tag": "0001_rebrand_lights_out",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791301184187,
+      "tag": "0002_instagram_location_fees",
+      "breakpoints": true
     }
   ]
 }

@@ -13,7 +13,7 @@
 
 ## Targeting all of Nepal
 
-The store ships nationwide, so the copy names the places people search from (Kathmandu, Pokhara, Chitwan, Biratnagar…) rather than the town it ships from. Jhapa appears only as the footer address and in the `Store` address.
+The store ships nationwide, so the copy names the places people search from (Kathmandu, Pokhara, Chitwan, Biratnagar…) rather than the town it ships from. The footer shows a short description, not an address; the optional Location setting adds one to the footer, Contact and the `Store` JSON-LD.
 
 - **Towns you deliver to** (settings): the home page list and `areaServed`. Visible text is what ranks, so this list does more than the keywords tag.
 - **Search phrases** (settings): `<meta name="keywords">` on every page. Google ignores this tag and Bing barely uses it, so keep the list short and honest; the same words belong in titles, descriptions and product text.

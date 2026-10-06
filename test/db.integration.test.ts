@@ -91,8 +91,9 @@ test("checkout takes stock, prices from the DB, and refuses to oversell", async 
   const { eq } = await import("drizzle-orm");
   const [o] = await db.select().from(orders).where(eq(orders.id, order.id));
   assert.equal(o.subtotal, 2 * v.price!);
-  assert.equal(o.deliveryFee, 100); // Jhapa
-  assert.equal(o.total, o.subtotal + 100);
+  const fee = defaultSettings.deliveryZones.find((z) => z.name === customer.deliveryZone)!.fee;
+  assert.equal(o.deliveryFee, fee);
+  assert.equal(o.total, o.subtotal + fee);
 
   await assert.rejects(placeOrder([{ variantId: v.id, qty: 1 }], customer, defaultSettings), CheckoutError);
 });

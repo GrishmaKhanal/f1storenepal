@@ -40,16 +40,17 @@ export function Footer({ s }: { s: Settings }) {
               )}
             </span>
           </div>
-          {s.location && (
+          {s.footerAbout && <p className="max-w-[380px] text-[13px] leading-relaxed text-faint">{s.footerAbout}</p>}
+          {(s.location || s.phone) && (
             <address className="text-[13px] not-italic text-faint">
-              {s.streetAddress && <>{s.streetAddress}, </>}
-              {s.location}
-              {s.phone && (
+              {s.location && (
                 <>
-                  <br />
-                  <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="hover:text-paper">{s.phone}</a>
+                  {s.streetAddress && <>{s.streetAddress}, </>}
+                  {s.location}
+                  {s.phone && <br />}
                 </>
               )}
+              {s.phone && <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="hover:text-paper">{s.phone}</a>}
             </address>
           )}
         </div>

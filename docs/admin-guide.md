@@ -56,13 +56,13 @@ Every uploaded image. Edit the **alt text** (a short description of the image; i
 
 | Section | Controls |
 |---|---|
-| Store | Name, tagline (also the slogan search engines see), location (your address, shown in the footer: Jhapa, Nepal), phone, WhatsApp, email |
+| Store | Name, tagline (also the slogan search engines see), location (optional public address for the footer, Contact and search engines; empty by default), phone, WhatsApp, email |
 | Instagram | Link and handle. Empty hides every Instagram button. |
 | Announcement strip | The black bar at the top, one message per line |
 | Home page hero | Style (dark/light), headline (`*stars*` make words red), text, the product for "Add to bag", second button, photo, big background number |
 | How ordering works | The numbered steps (`Title | text` per line) |
 | Delivery & payment | Areas and fees (`Jhapa | 100` per line), towns you deliver to (one per line, listed on the home page and given to search engines), free-delivery threshold, payment methods (`eSewa | instructions` per line) |
-| Pages | Delivery, Returns, Contact text and the footer disclaimer |
+| Pages | Delivery, Returns, Contact text, the footer description (under the logo) and the footer disclaimer |
 | Search engines | Home page title, default description, and search phrases (one per line, e.g. `F1 store Kathmandu`) |
 
 Payment instructions are shown publicly at checkout. Don't put account numbers there; send them to the customer directly.

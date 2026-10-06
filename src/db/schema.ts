@@ -191,7 +191,8 @@ export type PaymentMethod = { key: string; label: string; instructions: string |
 export type SiteSettings = {
   storeName: string;
   tagline: string | null;
-  location: string | null; // e.g. "Jhapa, Nepal": the footer address, not where you deliver
+  footerAbout: string | null; // a line or two under the logo in the footer
+  location: string | null; // optional public address ("Town, Country"), not where you deliver
   streetAddress: string | null;
   phone: string | null;
   email: string | null;
