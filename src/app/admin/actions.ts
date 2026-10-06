@@ -475,6 +475,7 @@ export async function saveSettings(_: FormState, fd: FormData): Promise<FormStat
       heroWatermark: opt(fd, "heroWatermark"),
       steps,
       deliveryZones: zones,
+      serviceAreas: lines(fd, "serviceAreas"),
       freeDeliveryOver: int(fd, "freeDeliveryOver", "Free delivery over"),
       paymentMethods: payments,
       lowStockThreshold: int(fd, "lowStockThreshold", "Low stock threshold") ?? 2,
@@ -484,6 +485,7 @@ export async function saveSettings(_: FormState, fd: FormData): Promise<FormStat
       footerDisclaimer: opt(fd, "footerDisclaimer"),
       seoTitle: opt(fd, "seoTitle"),
       seoDescription: opt(fd, "seoDescription"),
+      seoKeywords: lines(fd, "seoKeywords"),
     };
     await db
       .insert(settings)

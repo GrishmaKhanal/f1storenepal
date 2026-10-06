@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { getSettings } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
@@ -18,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: `%s | ${s.storeName}` },
     description: s.seoDescription ?? undefined,
+    keywords: s.seoKeywords.length ? s.seoKeywords : undefined,
     applicationName: s.storeName,
     // Canonical is set per page, never globally, or every page claims to be "/".
     openGraph: { type: "website", siteName: s.storeName, title, description: s.seoDescription ?? undefined, locale: "en_NP" },
@@ -30,7 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-NP" className={`${barlow.variable} ${dmSans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

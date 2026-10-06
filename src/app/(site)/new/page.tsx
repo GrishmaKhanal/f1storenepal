@@ -4,7 +4,7 @@ import { getNewest } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "New in: latest F1 diecast and merch",
-  description: "The newest Formula 1 diecast cars, caps and gifts to land at F1 Store Nepal.",
+  description: "The newest F1 diecast cars, caps and Formula 1 gifts, just landed in Nepal. Delivered anywhere in the country.",
   alternates: { canonical: "/new" },
 };
 

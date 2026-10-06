@@ -1,6 +1,6 @@
 # Docs
 
-How the F1 Store Nepal site is built, how data moves through it, and how to run and ship it.
+How the Lights Out Nepal site is built, how data moves through it, and how to run and ship it.
 
 | Folder | Read it when you want to… |
 |---|---|

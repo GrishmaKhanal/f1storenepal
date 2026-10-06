@@ -20,7 +20,12 @@ export default async function MediaAdmin({ searchParams }: PageProps<"/admin/med
       <p className="mb-4 text-sm text-ink-5">
         {rows.length} images · {(total / 1024 / 1024).toFixed(1)} MB stored {usesBucket ? "in the image bucket (served by its CDN)" : "locally in .media/ (set S3_* env vars for production)"}. Each upload is saved as WebP at up to 3 sizes.
       </p>
-      {sp.inuse && <p className="mb-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">Can&apos;t delete: that image is used by {String(sp.inuse)}. Remove it there first.</p>}
+      {usesBucket && !process.env.MEDIA_PUBLIC_URL && (
+        <p className="mb-4 rounded-lg bg-red/10 p-3 text-sm text-red">
+          Uploads are saved to the bucket, but MEDIA_PUBLIC_URL isn&apos;t set, so no image can be displayed. Set it to the bucket&apos;s public URL (no trailing slash) and redeploy. See docs/deploy/env-vars.md.
+        </p>
+      )}
+      {sp.inuse &&<p className="mb-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">Can&apos;t delete: that image is used by {String(sp.inuse)}. Remove it there first.</p>}
       {sp.failed && <p className="mb-4 rounded-lg bg-red/10 p-3 text-sm text-red">Couldn&apos;t delete the file from storage. Nothing was removed; try again.</p>}
       {rows.length ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

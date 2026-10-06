@@ -4,6 +4,7 @@ import { count, eq } from "drizzle-orm";
 import { db, hasDb } from "@/db";
 import { orders } from "@/db/schema";
 import { isAdmin } from "@/lib/auth";
+import { getSettings } from "@/lib/data";
 import { ADMIN } from "@/lib/admin-path";
 import { AdminNav, LogoutButton } from "./_components/nav";
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = { title: "Admin", robots: { index: false, foll
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const authed = await isAdmin();
   const newOrders = authed && hasDb ? (await db.select({ n: count() }).from(orders).where(eq(orders.status, "new")))[0].n : 0;
+  const { storeName } = await getSettings();
 
   return (
     <div className="min-h-screen bg-paper text-ink">
@@ -20,10 +22,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <div className="flex flex-wrap items-stretch xl:flex-nowrap">
             <Link href={ADMIN} className="flex items-center gap-2.5 px-4 py-2 hover:text-ink xl:pr-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/logo.jpeg" alt="" className="h-9 w-9 rounded-full" />
+              <img src="/assets/logo.png" alt="" className="h-9 w-9 rounded-full" />
               <span className="display text-lg leading-none">
                 ADMIN
-                <span className="block font-sans text-[11px] font-normal text-ink-5">F1 Store Nepal</span>
+                <span className="block font-sans text-[11px] font-normal text-ink-5">{storeName}</span>
               </span>
             </Link>
             <AdminNav newOrders={newOrders} base={ADMIN} />

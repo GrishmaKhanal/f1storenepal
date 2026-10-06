@@ -1,5 +1,5 @@
 {
-  "name": "f1storenepal",
+  "name": "lightsoutnepal",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1146.0",
     "@neondatabase/serverless": "^1.2.0",
+    "@vercel/analytics": "^2.0.1",
     "drizzle-orm": "^0.45.3",
     "jose": "^6.2.12",
     "next": "^16.3.6",
@@ -42,7 +43,7 @@
     "dotenv": "^18.0.5",
     "drizzle-kit": "^0.31.11",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.6",
+    "eslint-config-next": "^16.3.8",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3"

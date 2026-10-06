@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { InstagramCta, PageHead, Paras, wrap } from "@/components/chrome";
 import { getSettings } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Contact", description: "Get in touch with F1 Store Nepal in Jhapa: Instagram, phone and email.", alternates: { canonical: "/contact" } };
+export const metadata: Metadata = { title: "Contact", description: "Questions about an F1 merch order? Reach us on Instagram, phone or email. We deliver anywhere in Nepal.", alternates: { canonical: "/contact" } };
 
 export default async function Contact() {
   const s = await getSettings();

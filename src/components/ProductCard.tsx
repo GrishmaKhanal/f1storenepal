@@ -17,7 +17,7 @@ export function ProductCard({ p, priority }: { p: ProductView; priority?: boolea
         {img ? (
           <Img img={img} sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw" priority={priority} className="h-full w-full scale-[1.12] object-contain mix-blend-multiply transition-transform duration-500 ease-out-soft group-hover:scale-[1.2]" />
         ) : (
-          <div className="stripes absolute inset-0 flex items-center justify-center font-mono text-[11px] text-ghost">{p.team?.name ?? "F1 Store Nepal"}</div>
+          <div className="stripes absolute inset-0 flex items-center justify-center font-mono text-[11px] text-ghost">{p.team?.name ?? "Lights Out Nepal"}</div>
         )}
         {(p.badge || !p.inStock) && (
           <span className={`absolute top-3 left-3 rounded-full px-2.5 py-[5px] text-[11px] font-semibold tracking-[.04em] text-white ${p.inStock ? "bg-ink" : "bg-faint"}`}>

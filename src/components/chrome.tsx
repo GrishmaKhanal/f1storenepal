@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Settings } from "@/lib/data";
 import { abs } from "@/lib/site";
+import { wordmark } from "@/lib/wordmark";
 import { JsonLd } from "./JsonLd";
 import { InstagramIcon } from "./MegaNav";
 
@@ -21,16 +22,16 @@ export function Strip({ items }: { items: string[] }) {
 }
 
 export function Footer({ s }: { s: Settings }) {
-  const [first, ...rest] = s.storeName.toUpperCase().split(" ");
+  const [head, last] = wordmark(s.storeName);
   return (
     <footer className="bg-night text-dim">
       <div className={`${wrap} flex flex-wrap justify-between gap-8 py-12 text-sm`}>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/logo.jpeg" alt="" width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full" />
+            <img src="/assets/logo.png" alt="" width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full" />
             <span className="display text-[22px] text-paper">
-              {first} <span className="text-red">{rest.join(" ")}</span>
+              {head} <span className="text-red">{last}</span>
               {s.tagline && (
                 <>
                   <br />
@@ -65,7 +66,16 @@ export function Footer({ s }: { s: Settings }) {
           )}
         </div>
       </div>
-      {s.footerDisclaimer && <div className="border-t border-[#222] px-6 py-4 text-center text-xs text-[#6d6963]">{s.footerDisclaimer}</div>}
+      {/* Fine print. The non-affiliation notice is fixed in code so it can't be blanked from admin. */}
+      <div className="flex flex-col gap-2 border-t border-[#222] px-6 py-5 text-center text-xs leading-relaxed text-[#6d6963]">
+        <p className="mx-auto max-w-3xl">
+          {s.storeName} is an independent retailer and is not affiliated with, endorsed by or sponsored by Formula 1, the FIA, or any Formula 1 team or driver. F1, FORMULA 1 and related marks are trademarks of Formula One Licensing B.V.
+        </p>
+        {s.footerDisclaimer && <p className="mx-auto max-w-3xl">{s.footerDisclaimer}</p>}
+        <p>
+          © {new Date().getFullYear()} {s.storeName} · Developed by Bit Overflow Technologies
+        </p>
+      </div>
     </footer>
   );
 }
