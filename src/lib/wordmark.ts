@@ -1,4 +1,4 @@
-// Shared by the header (a client component), footer and social card.
+// Shared by the header (a client component) and footer.
 /** "Lights Out Nepal" -> ["LIGHTS OUT", "NEPAL"]: the last word is drawn in red. */
 export function wordmark(name: string): [string, string] {
   const words = name.toUpperCase().split(" ");

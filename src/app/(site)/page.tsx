@@ -235,7 +235,7 @@ function StoreJsonLd({ s }: { s: Settings }) {
           name: s.storeName,
           url: SITE_URL,
           logo: abs("/icons/icon-512.png"),
-          image: abs("/opengraph-image"),
+          image: abs("/opengraph-image.png"),
           description: s.seoDescription ?? undefined,
           slogan: s.tagline ?? undefined,
           telephone: s.phone ?? undefined,
