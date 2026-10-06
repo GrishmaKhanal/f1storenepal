@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { getSettings } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
@@ -30,7 +31,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-NP" className={`${barlow.variable} ${dmSans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
