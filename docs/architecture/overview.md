@@ -36,7 +36,7 @@ Browser ──HTML──▶ server components (src/app/(site), src/app/admin)
 | `src/lib/auth.ts`, `credentials.ts`, `admin-path.ts` | Admin login, session cookie, `requireAdmin()`. |
 | `src/app/actions/checkout.ts` | Public Server Actions: `quoteBag`, `submitOrder`. |
 | `src/app/admin/actions.ts` | All **admin writes**. Each calls `requireAdmin()`, then `updateTag(...)`. |
-| `src/app/sitemap.ts`, `robots.ts`, `manifest.ts`, `opengraph-image.tsx` | Generated SEO files. See [seo.md](seo.md). |
+| `src/app/sitemap.ts`, `robots.ts`, `manifest.ts`, `opengraph-image.png` | SEO files (the social card is a static image). See [seo.md](seo.md). |
 | `scripts/*.ts` | CLI only (seed, migrate-on-deploy, dev DB check). Never bundled. |
 
 ## Rendered on the server, sent as HTML

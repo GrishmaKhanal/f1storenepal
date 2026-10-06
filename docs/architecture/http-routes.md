@@ -25,7 +25,7 @@ There is no JSON API: pages are HTML, a few routes return files, and all writes 
 | `/sitemap.xml` | `src/app/sitemap.ts` | Static pages, every active product (with up to 3 image URLs), and teams/drivers/categories that have products. |
 | `/robots.txt` | `src/app/robots.ts` | Allows all except `/checkout`, `/order/`, `/search`. Deliberately doesn't list `ADMIN_PATH`. |
 | `/manifest.webmanifest` | `src/app/manifest.ts` | Web app manifest. |
-| `/opengraph-image` | `src/app/opengraph-image.tsx` | Default 1200×630 social card. Product pages use their own photo. |
+| `/opengraph-image.png` | `src/app/opengraph-image.png` | Default 1200×630 social card, a static file (alt text in `opengraph-image.alt.txt`). Replace the PNG to change it. Product pages use their own photo. |
 | `/media/<key>-<w>.webp` | `src/app/media/[...key]/route.ts` | **Local dev only**: serves `./.media`. Returns 404 when `S3_BUCKET` is set (images come from `MEDIA_PUBLIC_URL`). |
 | `/icon.png`, `/apple-icon.png`, `/icons/*`, `/assets/*` | `src/app/*`, `public/` | Static files. The proxy skips these. |
 
