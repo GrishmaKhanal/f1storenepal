@@ -7,7 +7,7 @@ UPDATE "settings" SET "value" = "value"
        THEN '{"storeName":"Lights Out Nepal"}'::jsonb ELSE '{}'::jsonb END
   || CASE WHEN "value"->'tagline' = '"Cars · Gifts"'::jsonb
        THEN '{"tagline":"F1 merch & diecast, delivered across Nepal"}'::jsonb ELSE '{}'::jsonb END
-  || CASE WHEN "value"->'announcements' = '["Delivered across Nepal from Jhapa","Cash on delivery · eSewa · Khalti"]'::jsonb
+  || CASE WHEN "value"->'announcements' = '["Delivered across Nepal","Cash on delivery · eSewa · Khalti"]'::jsonb
        THEN '{"announcements":["Delivery anywhere in Nepal: Kathmandu, Pokhara and beyond","Cash on delivery · eSewa · Khalti"]}'::jsonb ELSE '{}'::jsonb END
   || CASE WHEN "value"->'steps' = '[{"title":"Order online or on Instagram","body":"Check out here or DM @f1storenepal."},{"title":"Pay your way","body":"eSewa, Khalti, bank transfer or cash on delivery."},{"title":"Delivered across Nepal","body":"Shipped from Jhapa. Delivery times depend on your area."}]'::jsonb
        THEN '{"steps":[{"title":"Order online or on Instagram","body":"Check out here, or DM us on Instagram."},{"title":"Pay your way","body":"eSewa, Khalti, bank transfer or cash on delivery."},{"title":"Delivered across Nepal","body":"Kathmandu, Pokhara or anywhere else in Nepal. Delivery time depends on your area."}]}'::jsonb ELSE '{}'::jsonb END
@@ -15,6 +15,6 @@ UPDATE "settings" SET "value" = "value"
        THEN '{"deliveryInfo":"We deliver anywhere in Nepal: Kathmandu Valley, Pokhara, Chitwan, Butwal, Biratnagar, Dharan, Birgunj and everywhere in between.\n\nDelivery fees depend on your area and are shown at checkout. We''ll call or message you to confirm every order before it ships."}'::jsonb ELSE '{}'::jsonb END
   || CASE WHEN "value"->'seoTitle' = '"F1 Store Nepal: F1 diecast cars, caps and gifts"'::jsonb
        THEN '{"seoTitle":"Lights Out Nepal | F1 Merch Store, Diecast Cars & Gifts"}'::jsonb ELSE '{}'::jsonb END
-  || CASE WHEN "value"->'seoDescription' = '"Formula 1 diecast model cars, team caps, keychains and gifts, delivered across Nepal from Jhapa. Shop by driver or team. Cash on delivery, eSewa and Khalti."'::jsonb
+  || CASE WHEN "value"->'seoDescription' = '"Formula 1 diecast model cars, team caps, keychains and gifts, delivered across Nepal. Shop by driver or team. Cash on delivery, eSewa and Khalti."'::jsonb
        THEN '{"seoDescription":"F1 merch in Nepal: diecast F1 cars, team caps, keychains and Formula 1 gifts. Delivered to Kathmandu, Pokhara and all of Nepal. Cash on delivery."}'::jsonb ELSE '{}'::jsonb END
 WHERE "key" = 'site';
