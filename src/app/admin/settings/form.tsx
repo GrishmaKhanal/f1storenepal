@@ -65,7 +65,7 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
         <Area name="deliveryInfo" label="Delivery page" rows={5} defaultValue={s.deliveryInfo} hint="Blank line = new paragraph." />
         <Area name="returnsInfo" label="Returns page" rows={4} defaultValue={s.returnsInfo} />
         <Area name="contactInfo" label="Contact page intro" rows={3} defaultValue={s.contactInfo} />
-        <Text name="footerDisclaimer" label="Footer disclaimer" defaultValue={s.footerDisclaimer} />
+        <Text name="footerDisclaimer" label="Footer note" defaultValue={s.footerDisclaimer} hint="Optional extra line in the footer fine print. The &ldquo;not affiliated with Formula 1&rdquo; notice is always shown, so don&apos;t repeat it here." />
       </Section>
 
       <Section title="Search engines (site-wide)">

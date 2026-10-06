@@ -48,7 +48,7 @@ export const defaultSettings: SiteSettings = {
   returnsInfo:
     "If something arrives damaged or isn't what you ordered, message us within 3 days of delivery with photos and we'll sort it out.",
   contactInfo: "The quickest way to reach us is a DM on Instagram.",
-  footerDisclaimer: "Independent retailer. Not affiliated with Formula 1 or its teams.",
+  footerDisclaimer: null,
   seoTitle: "F1 Store Nepal: F1 diecast cars, caps and gifts",
   seoDescription:
     "Formula 1 diecast model cars, team caps, keychains and gifts, delivered across Nepal from Jhapa. Shop by driver or team. Cash on delivery, eSewa and Khalti.",

@@ -65,7 +65,16 @@ export function Footer({ s }: { s: Settings }) {
           )}
         </div>
       </div>
-      {s.footerDisclaimer && <div className="border-t border-[#222] px-6 py-4 text-center text-xs text-[#6d6963]">{s.footerDisclaimer}</div>}
+      {/* Fine print. The non-affiliation notice is fixed in code so it can't be blanked from admin. */}
+      <div className="flex flex-col gap-2 border-t border-[#222] px-6 py-5 text-center text-xs leading-relaxed text-[#6d6963]">
+        <p className="mx-auto max-w-3xl">
+          {s.storeName} is an independent retailer and is not affiliated with, endorsed by or sponsored by Formula 1, the FIA, or any Formula 1 team or driver. F1, FORMULA 1 and related marks are trademarks of Formula One Licensing B.V.
+        </p>
+        {s.footerDisclaimer && <p className="mx-auto max-w-3xl">{s.footerDisclaimer}</p>}
+        <p>
+          © {new Date().getFullYear()} {s.storeName} · Developed by Bit Overflow Technologies
+        </p>
+      </div>
     </footer>
   );
 }
