@@ -18,7 +18,7 @@ The store ships nationwide, so the copy names the places people search from (Kat
 - **Towns you deliver to** (settings): the home page list and `areaServed`. Visible text is what ranks, so this list does more than the keywords tag.
 - **Search phrases** (settings): `<meta name="keywords">` on every page. Google ignores this tag and Bing barely uses it, so keep the list short and honest; the same words belong in titles, descriptions and product text.
 - "F1 store near me" searches are answered mostly from Google Business Profile. Set one up with the address and a description that says you deliver across Nepal.
-- "F1" and "Formula 1" are used only to describe what's sold. The store name doesn't use them, and the footer carries the non-affiliation notice.
+- "F1" and "Formula 1" describe what's sold; the store name doesn't use them, and the footer carries the non-affiliation notice. The logo does include the F1 mark: if Formula One objects, replace `public/assets/logo.png`, `src/app/icon.png`, `src/app/apple-icon.png` and `public/icons/*`.
 
 Every product, team, driver and category has optional **SEO title** (60 chars) and **SEO description** (160 chars) fields with live counters in the admin.
 

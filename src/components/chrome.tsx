@@ -29,7 +29,7 @@ export function Footer({ s }: { s: Settings }) {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/logo.svg" alt="" width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full" />
+            <img src="/assets/logo.png" alt="" width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full" />
             <span className="display text-[22px] text-paper">
               {head} <span className="text-red">{last}</span>
               {s.tagline && (

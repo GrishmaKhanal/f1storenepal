@@ -12,7 +12,7 @@ export function LoginForm() {
     <div className="mx-auto mt-[12vh] max-w-sm">
       <div className="mb-6 flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logo.svg" alt="" className="h-12 w-12 rounded-full" />
+        <img src="/assets/logo.png" alt="" className="h-12 w-12 rounded-full" />
         <div>
           <div className="display text-2xl">STORE ADMIN</div>
           <div className="text-xs text-ink-5">Sign in to manage the store</div>
