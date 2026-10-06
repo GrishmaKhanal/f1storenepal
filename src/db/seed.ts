@@ -41,7 +41,7 @@ export async function seedDatabase(loadAsset: (file: string) => Promise<Buffer>,
   // https URLs (manufacturer photos) are fetched; anything else is a file in public/assets.
   const load = async (src: string) => {
     if (!/^https:\/\//.test(src)) return loadAsset(src);
-    const r = await fetch(src, { headers: { "User-Agent": "Mozilla/5.0 (F1 Store Nepal starter import)" }, signal: AbortSignal.timeout(20_000) });
+    const r = await fetch(src, { headers: { "User-Agent": "Mozilla/5.0 (Lights Out Nepal starter import)" }, signal: AbortSignal.timeout(20_000) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return Buffer.from(await r.arrayBuffer());
   };

@@ -13,8 +13,8 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
       <Section title="Store">
         <div className="grid gap-4 sm:grid-cols-2">
           <Text name="storeName" label="Store name" defaultValue={s.storeName} required />
-          <Text name="tagline" label="Tagline" defaultValue={s.tagline} placeholder="Cars · Gifts" />
-          <Text name="location" label="Location" defaultValue={s.location} placeholder="Jhapa, Nepal" hint="“Town, Country”. Shown in the footer and used for local search (structured data)." />
+          <Text name="tagline" label="Tagline" defaultValue={s.tagline} placeholder="F1 merch & diecast, delivered across Nepal" />
+          <Text name="location" label="Location" defaultValue={s.location} placeholder="Jhapa, Nepal" hint="“Town, Country”. Your address, shown in the footer and used for local search (structured data). Where you deliver goes under Delivery." />
           <Text name="streetAddress" label="Street address" defaultValue={s.streetAddress} hint="Optional." />
           <Text name="phone" label="Phone" defaultValue={s.phone} hint="Optional. Shown publicly." />
           <Text name="whatsapp" label="WhatsApp" defaultValue={s.whatsapp} hint="Optional. Shown on Contact." />
@@ -56,6 +56,7 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
 
       <Section title="Delivery & payment">
         <Area name="deliveryZones" label="Delivery areas and fees (Rs)" rows={5} mono defaultValue={s.deliveryZones.map((z) => `${z.name} | ${z.fee}`).join("\n")} hint={pipeHint("Jhapa | 100")} />
+        <Area name="serviceAreas" label="Towns you deliver to" rows={4} defaultValue={s.serviceAreas.join("\n")} hint="One per line. Listed on the home page and given to search engines as the area you serve. Empty = hidden." />
         <Text name="freeDeliveryOver" label="Free delivery over (Rs)" defaultValue={s.freeDeliveryOver} hint="Optional." />
         <Area name="paymentMethods" label="Payment methods" rows={5} mono defaultValue={s.paymentMethods.map((p) => `${p.label} | ${p.instructions ?? ""}`).join("\n")} hint={pipeHint("eSewa | We'll message you with payment details.")} />
         <p className="text-xs text-ink-5">Payment instructions are public (shown at checkout). Don&apos;t paste account numbers you wouldn&apos;t want on the site; send them to customers directly.</p>
@@ -71,6 +72,7 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
       <Section title="Search engines (site-wide)">
         <Counted name="seoTitle" label="Home page title" max={60} defaultValue={s.seoTitle} />
         <Counted name="seoDescription" label="Default description" max={160} rows={3} defaultValue={s.seoDescription} hint="Used on the home page and anywhere without its own description." />
+        <Area name="seoKeywords" label="Search phrases" rows={6} defaultValue={s.seoKeywords.join("\n")} hint="One per line, e.g. “F1 store Kathmandu”. Added to every page as meta keywords. Google ignores that tag, so also use these words in titles, descriptions and product text." />
       </Section>
     </SaveForm>
   );

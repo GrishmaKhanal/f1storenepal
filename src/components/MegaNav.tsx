@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { wordmark } from "@/lib/wordmark";
 import { BagButton } from "./bag";
 
 export type NavData = {
@@ -23,7 +24,7 @@ export function MegaNav({ data }: { data: NavData }) {
   const pathname = usePathname();
   const router = useRouter();
   const header = useRef<HTMLElement>(null);
-  const [first, ...rest] = data.storeName.toUpperCase().split(" ");
+  const [head, last] = wordmark(data.storeName);
 
   // Close everything on navigation.
   useEffect(() => {
@@ -75,8 +76,8 @@ export function MegaNav({ data }: { data: NavData }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={data.logo} alt="" width={46} height={46} className="h-[46px] w-[46px] rounded-full object-cover" />
           <span className="display hidden text-[22px] tracking-[.02em] sm:inline">
-            {first}
-            <span className="text-red"> {rest.join(" ")}</span>
+            {head}
+            <span className="text-red"> {last}</span>
           </span>
         </Link>
 

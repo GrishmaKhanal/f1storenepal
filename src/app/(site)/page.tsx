@@ -94,6 +94,25 @@ export default async function Home() {
         </section>
       )}
 
+      {s.serviceAreas.length > 0 && (
+        <section className={`${wrap} pt-[72px]`}>
+          <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-end">
+            <div>
+              <h2 className="display text-[clamp(34px,4vw,44px)]">F1 MERCH, DELIVERED ACROSS NEPAL</h2>
+              <p className="mt-4 max-w-[520px] text-[15.5px] leading-relaxed text-muted">
+                Looking for an F1 store near you? {s.storeName} delivers Formula 1 diecast cars, team caps, keychains and gifts to your door, wherever you are in Nepal.
+              </p>
+            </div>
+            <ul aria-label="Towns we deliver to" className="flex flex-wrap gap-2">
+              {s.serviceAreas.map((a) => (
+                <li key={a} className="rounded-full border border-rule bg-white px-3.5 py-1.5 text-sm">{a}</li>
+              ))}
+              <li className="rounded-full bg-ink px-3.5 py-1.5 text-sm text-paper">and everywhere else in Nepal</li>
+            </ul>
+          </div>
+        </section>
+      )}
+
       {s.steps.length > 0 && (
         <section className={`${wrap} pt-[72px]`}>
           <div className="grid gap-8 rounded-[20px] border border-rule bg-white p-7 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:p-9">
@@ -218,11 +237,12 @@ function StoreJsonLd({ s }: { s: Settings }) {
           logo: abs("/icons/icon-512.png"),
           image: abs("/opengraph-image"),
           description: s.seoDescription ?? undefined,
+          slogan: s.tagline ?? undefined,
           telephone: s.phone ?? undefined,
           email: s.email ?? undefined,
           currenciesAccepted: "NPR",
           paymentAccepted: s.paymentMethods.map((p) => p.label).join(", ") || undefined,
-          areaServed: { "@type": "Country", name: "Nepal" },
+          areaServed: [{ "@type": "Country", name: "Nepal" }, ...s.serviceAreas.map((name) => ({ "@type": "Place", name }))],
           address: s.location
             ? { "@type": "PostalAddress", streetAddress: s.streetAddress ?? undefined, addressLocality: locality, addressCountry: country === "Nepal" || !country ? "NP" : country }
             : undefined,

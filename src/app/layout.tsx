@@ -19,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: `%s | ${s.storeName}` },
     description: s.seoDescription ?? undefined,
+    keywords: s.seoKeywords.length ? s.seoKeywords : undefined,
     applicationName: s.storeName,
     // Canonical is set per page, never globally, or every page claims to be "/".
     openGraph: { type: "website", siteName: s.storeName, title, description: s.seoDescription ?? undefined, locale: "en_NP" },

@@ -191,7 +191,7 @@ export type PaymentMethod = { key: string; label: string; instructions: string |
 export type SiteSettings = {
   storeName: string;
   tagline: string | null;
-  location: string | null; // e.g. "Jhapa, Nepal"
+  location: string | null; // e.g. "Jhapa, Nepal": the footer address, not where you deliver
   streetAddress: string | null;
   phone: string | null;
   email: string | null;
@@ -210,6 +210,7 @@ export type SiteSettings = {
   heroWatermark: string | null; // the big background number, e.g. "44"
   steps: Step[];
   deliveryZones: Zone[];
+  serviceAreas: string[]; // towns delivered to: home page list and areaServed in JSON-LD
   freeDeliveryOver: number | null;
   paymentMethods: PaymentMethod[];
   lowStockThreshold: number;
@@ -219,6 +220,7 @@ export type SiteSettings = {
   footerDisclaimer: string | null;
   seoTitle: string | null;
   seoDescription: string | null;
+  seoKeywords: string[];
 };
 
 export type Media = typeof media.$inferSelect;

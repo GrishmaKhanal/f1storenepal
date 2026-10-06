@@ -24,6 +24,16 @@ git push                                          # 6. production build migrates
 
 Migrations use `DATABASE_URL_UNPOOLED` when it's set (Neon's direct connection), else `DATABASE_URL`.
 
+## Changing content that's already in the database
+
+New starter text in `src/content/seed.ts` only reaches a database that hasn't been seeded yet. To update a live one, write a custom migration that replaces a value **only where it still equals the old default**, so admin edits survive:
+
+```sh
+npm run db:generate -- --custom --name rebrand_lights_out   # empty drizzle/0001_rebrand_lights_out.sql
+```
+
+`0001_rebrand_lights_out.sql` is the example: one `UPDATE settings` that merges each new value into the JSON with `||` when the old one is unchanged. It's safe to run twice. After it runs in production, use **Refresh public pages** on the admin dashboard so cached pages pick up the change.
+
 ## Rules that keep deploys safe
 
 The new code and the old code both run against the database for a moment during a deploy, so:

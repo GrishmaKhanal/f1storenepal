@@ -14,7 +14,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <MegaNav
         data={{
           storeName: s.storeName,
-          logo: "/assets/logo.jpeg",
+          logo: "/assets/logo.svg",
           instagramUrl: s.instagramUrl,
           drivers: c.drivers.map((d) => ({ slug: d.slug, name: d.name, number: d.number })),
           teams: c.teams.map((t) => ({ slug: t.slug, name: t.name, color: t.color })),

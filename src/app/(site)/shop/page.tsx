@@ -6,7 +6,7 @@ import { getCatalog, getProducts, type ProductView } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Shop all F1 diecast, caps and gifts",
-  description: "Every Formula 1 diecast model car, cap, keychain and gift at F1 Store Nepal. Filter by team or category. Delivered across Nepal.",
+  description: "Every F1 diecast model car, cap, keychain and Formula 1 gift in one place. Filter by team or category. Delivered to Kathmandu, Pokhara and all of Nepal.",
   // Filtered views (?team=, ?sort=) all point at the one canonical listing.
   alternates: { canonical: "/shop" },
 };

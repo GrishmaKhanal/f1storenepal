@@ -3,7 +3,7 @@ import { InstagramCta, PageHead, Paras, wrap } from "@/components/chrome";
 import { getSettings } from "@/lib/data";
 import { rs } from "@/lib/money";
 
-export const metadata: Metadata = { title: "Delivery", description: "How delivery works across Nepal: areas, fees and timing.", alternates: { canonical: "/delivery" } };
+export const metadata: Metadata = { title: "Delivery", description: "F1 merch delivered anywhere in Nepal, from Kathmandu and Pokhara to Chitwan and Biratnagar: areas, fees and timing.", alternates: { canonical: "/delivery" } };
 
 export default async function Page() {
   const s = await getSettings();

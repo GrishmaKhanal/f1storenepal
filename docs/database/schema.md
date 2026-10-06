@@ -25,7 +25,7 @@ Source of truth: `src/db/schema.ts`. SQL: `drizzle/0000_init.sql` plus any later
 
 | Table | Holds | Notes |
 |---|---|---|
-| `settings` | All editable site content | One row, `key = 'site'`, `value` JSONB `SiteSettings`: store name, location, contact, Instagram, announcements, hero, steps, delivery zones, free-delivery threshold, payment methods, low-stock threshold, page copy, SEO defaults. Missing fields fall back to `src/content/seed.ts`. |
+| `settings` | All editable site content | One row, `key = 'site'`, `value` JSONB `SiteSettings`: store name, location, contact, Instagram, announcements, hero, steps, delivery zones, delivery towns (`serviceAreas`), free-delivery threshold, payment methods, low-stock threshold, page copy, SEO defaults and keywords. Missing fields fall back to `src/content/seed.ts`. |
 
 Drizzle also keeps `drizzle.__drizzle_migrations`. Don't edit it by hand.
 
