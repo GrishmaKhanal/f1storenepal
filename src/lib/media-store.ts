@@ -11,13 +11,17 @@ const bucket = process.env.S3_BUCKET;
 export const usesBucket = Boolean(bucket);
 export const LOCAL_DIR = path.join(process.cwd(), ".media");
 
+// R2's dashboard shows the endpoint with the bucket on the end (".../my-bucket"). With
+// path-style addressing that would nest every key under "my-bucket/", so strip it.
+const endpoint = process.env.S3_ENDPOINT?.replace(/\/+$/, "").replace(new RegExp(`/${bucket}$`), "") || undefined;
+
 let client: S3Client | null = null;
 function s3() {
   client ??= new S3Client({
     region: process.env.S3_REGION || "auto",
-    endpoint: process.env.S3_ENDPOINT || undefined,
+    endpoint,
     // R2 and MinIO want path-style addressing; S3 accepts it too.
-    forcePathStyle: Boolean(process.env.S3_ENDPOINT),
+    forcePathStyle: Boolean(endpoint),
     credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY_ID ?? "",
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? "",

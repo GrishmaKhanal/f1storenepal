@@ -28,7 +28,7 @@ echo "SESSION_SECRET=$(openssl rand -base64 48)"
 | `SESSION_SECRET` | yes | yes | 32+ chars: `openssl rand -base64 48`. Rotating it logs everyone out. |
 | `SITE_URL` | no | yes | Public origin, e.g. `https://f1storenepal.com`. Used in canonical URLs, sitemap, JSON-LD and OG tags. Redeploy after changing it. |
 | `S3_BUCKET` | no | production | Empty = local `./.media` folder (dev only; serverless hosts refuse uploads). |
-| `S3_ENDPOINT` | no | for non-AWS | R2: `https://<account-id>.r2.cloudflarestorage.com`. Empty for AWS S3. |
+| `S3_ENDPOINT` | no | for non-AWS | R2: `https://<account-id>.r2.cloudflarestorage.com`, without the `/<bucket>` the dashboard adds. Empty for AWS S3. |
 | `S3_REGION` | no | yes | `auto` for R2, e.g. `ap-south-1` for AWS. |
 | `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | yes | production | A key scoped to this one bucket, read and write. |
 | `MEDIA_PUBLIC_URL` | no | production | Public CDN origin for the bucket, no trailing slash, e.g. `https://img.f1storenepal.com`. |
