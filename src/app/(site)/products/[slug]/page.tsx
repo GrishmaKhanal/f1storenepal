@@ -110,7 +110,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               )}
               <h1 className="display text-[clamp(38px,5vw,60px)] leading-[.95] font-extrabold">{p.name}</h1>
             </div>
-            <BuyBox product={{ slug: p.slug, name: p.name, image: p.images[0]?.src ?? null }} variants={p.variants} lowStock={s.lowStockThreshold} instagramDmUrl={dmUrl} />
+            <BuyBox product={{ slug: p.slug, name: p.name, image: p.images[0]?.src ?? null, compareAtPrice: p.compareAtPrice }} variants={p.variants} lowStock={s.lowStockThreshold} instagramDmUrl={dmUrl} />
             <InstagramCta url={dmUrl} handle={s.instagramHandle} text="Prefer to order on Instagram?" />
             {p.description && <Paras text={p.description} className="text-[15.5px] leading-relaxed text-[#33302c]" />}
             {details.length > 0 && (

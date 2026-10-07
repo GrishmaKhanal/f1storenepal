@@ -24,7 +24,7 @@ The browser never sees bucket credentials.
 
 ## Display
 
-`src/lib/media-url.ts` builds `MEDIA_PUBLIC_URL/<key>-<w>.webp`; `toImg()` in `data.ts` turns a row into `{ src (960), large (1600), srcSet, width, height, alt }`. `components/Img.tsx` renders responsive plain `<img>` elements with `srcset`, `sizes`, real dimensions (no layout shift), lazy loading except above the fold, and high fetch priority for hero images. `Gallery` in `components/ProductBuy.tsx` shows one responsive slide at a time, preloads the next at low priority, supports touch/arrow/keyboard navigation, and opens the largest available variant in a zoom dialog.
+`src/lib/media-url.ts` builds `MEDIA_PUBLIC_URL/<key>-<w>.webp`; `toImg()` in `data.ts` turns a row into `{ src (960), large (1600), srcSet, width, height, alt }`. `components/Img.tsx` renders responsive plain `<img>` elements with `srcset`, `sizes`, real dimensions (no layout shift), lazy loading except above the fold, and high fetch priority for hero images. `Gallery` in `components/ProductBuy.tsx` shows one responsive slide at a time, preloads the next at low priority, and supports touch/arrow/keyboard navigation.
 
 `next/image` optimisation is **not** used: the sizes already exist, and on Vercel it would be billed per image.
 
