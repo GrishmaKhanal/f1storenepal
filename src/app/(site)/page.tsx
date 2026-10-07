@@ -49,7 +49,7 @@ export default async function Home() {
             {featured.map((d) => (
               <Link key={d.slug} href={paths.driver(d.slug)} className="group flex snap-start flex-col overflow-hidden rounded-[14px] border border-rule bg-white transition-colors hover:border-ink hover:text-ink">
                 <div className="stripes relative flex aspect-[4/5] items-end overflow-hidden p-3.5">
-                  {d.portrait && <Img img={d.portrait} sizes="220px" alt={d.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-soft group-hover:scale-105" />}
+                  {d.portrait && <Img img={d.portrait} sizes="220px" alt={d.name} className="absolute inset-0 h-full w-full object-cover object-top origin-top transition-transform duration-500 ease-out-soft group-hover:scale-105" />}
                   <span className="display absolute top-2.5 right-3.5 text-[64px] italic" style={{ color: d.team?.color ?? "#111" }}>
                     {d.number}
                   </span>
