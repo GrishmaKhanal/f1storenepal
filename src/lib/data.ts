@@ -229,7 +229,7 @@ const cachedSettings = cached(_getSettings, "settings", [TAGS.settings]);
 // Fill any field added since from the defaults here too, not only inside _getSettings.
 export const getSettings = async (): Promise<Settings> => ({ ...defaultSettings, ...(await cachedSettings()) });
 export const getProducts = cached(_getProducts, "products-v2", [TAGS.products]);
-export const getCatalog = cached(_getCatalog, "catalog", [TAGS.catalog, TAGS.products]);
+export const getCatalog = cached(_getCatalog, "catalog-v2", [TAGS.catalog, TAGS.products]);
 
 export async function getProduct(slug: string) {
   return (await getProducts()).find((p) => p.slug === slug) ?? null;
