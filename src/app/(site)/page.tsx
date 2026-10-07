@@ -30,10 +30,15 @@ export default async function Home() {
           <SectionHead title="SHOP BY TEAM" href="/teams" link="All teams" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
             {c.teams.map((t) => (
-              <Link key={t.slug} href={paths.team(t.slug)} className="flex flex-col gap-7 rounded-[14px] border border-rule bg-white px-[18px] pt-[18px] pb-4 transition-all duration-200 ease-out-soft hover:-translate-y-[3px] hover:border-ink hover:text-ink">
-                <span className="h-1.5 w-11 rounded-[3px]" style={{ background: t.color ?? "#111" }} />
-                <span className="flex items-end justify-between gap-2">
-                  <span className="font-display text-[23px] leading-none font-bold">{t.name}</span>
+              <Link key={t.slug} href={paths.team(t.slug)} className="group overflow-hidden rounded-[14px] border border-rule bg-white transition-all duration-200 ease-out-soft hover:-translate-y-[3px] hover:border-ink hover:text-ink">
+                <span className="relative flex aspect-[4/1] items-center justify-center overflow-hidden px-2">
+                  {t.logo ? <Img img={t.logo} sizes="(max-width: 640px) 50vw, 220px" alt={`${t.name} 2026 Formula 1 car`} className="h-full w-full object-contain transition-transform duration-300 ease-out-soft group-hover:scale-105" /> : <span className="h-1.5 w-11 rounded-[3px]" style={{ background: t.color ?? "#111" }} />}
+                </span>
+                <span className="flex items-end justify-between gap-2 border-t border-rule px-[18px] py-3.5">
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: t.color ?? "#111" }} />
+                    <span className="font-display text-[23px] leading-none font-bold">{t.name}</span>
+                  </span>
                   {t.count > 0 && <span className="font-mono text-[11px] text-ghost">{t.count}</span>}
                 </span>
               </Link>
