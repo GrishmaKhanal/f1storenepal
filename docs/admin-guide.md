@@ -43,8 +43,8 @@ Quick stock change: on the **Products** list, type the new number next to a vari
 
 ## Teams, drivers, categories
 
-- **Teams**: name, colour (used for stripes and dots), intro text, optional logo.
-- **Drivers**: number, team, intro, optional portrait. Tick **Feature on the home page** for the driver cards. Only upload photos you have the rights to.
+- **Teams**: use **Edit team** in the Teams list or a driver's team cell to change the name/spelling, colour, intro text, or logo.
+- **Drivers**: use **Edit driver** in the Drivers list to change the name, number, team, intro, or portrait. On a driver's edit page, use **Edit team: [name]** to update its associated team's spelling, colour, or logo.
 - **Categories**: tick **List under Accessories** for caps, keychains etc.; tick **Tab on "New in"** to add a filter tab on the home page.
 - Unticking **Show on site** hides one without deleting it. Product counts update by themselves.
 
