@@ -21,9 +21,11 @@ Everything you save is **live on the site straight away**. No redeploy, no waiti
 
 Prefer Cancelled over Delete so you keep a record.
 
-## Adding a product
+## Adding or editing a product
 
 **Products → New product**
+
+For existing items, select **Edit** in the product row on the Products list.
 
 | Field | Tip |
 |---|---|
@@ -31,12 +33,12 @@ Prefer Cancelled over Delete so you keep a record.
 | URL slug | Filled from the name. Don't change it once the product is live. |
 | Description | What it is, scale, what's in the box. A blank line starts a new paragraph. |
 | Brand, Scale, Badge | Badge shows on the card: New, Bestseller, Pre-order (Pre-order also tells Google it's a pre-order). |
-| Images | **Upload** (several at once) or **From library**. The first is the main photo; use ← → to reorder. White-background photos look best. Max 4 MB each. |
+| Images | **Upload** one or several images at once, or add images from the library. The first is the main photo; use ← → to reorder or remove images. White-background photos look best. Max 4 MB each. |
 | Price | In rupees. Variants can override it. Leave empty and tick "No price" to show "Ask on Instagram" instead. |
 | Variants | One row with no label for a simple product. For sizes or options, add a row per option with a label (Adult, Kids, S, M, L). |
-| Stock | Per variant. **Empty = not tracked** (always available). **0 = sold out.** It goes down automatically when someone orders. |
+| Stock | Per variant. **Empty = not tracked** (always available). **0 = sold out.** Use **Mark all sold out** to set every variant to 0. Stock goes down automatically when someone orders. |
 | Team / Driver / Category | Puts the product on those pages and in the menus. |
-| Status | **Draft** while you're preparing it, **Active** to publish, **Archived** to hide it without deleting. |
+| Status | **Draft** and **Archived** are hidden; **Active** publishes. Sold out is inventory, not a separate visibility status: keep it Active and set all variants to 0. |
 | SEO title / description | Optional. Good defaults are generated. |
 
 Quick stock change: on the **Products** list, type the new number next to a variant and click **set**.

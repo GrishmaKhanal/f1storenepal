@@ -59,7 +59,7 @@ export function ProductForm({ product, variants, images, library, teams, drivers
           </div>
           <div className="space-y-5">
             <Section title="Visibility">
-              <Select name="status" label="Status" empty={null} defaultValue={p?.status ?? "draft"} options={[["draft", "Draft (hidden)"], ["active", "Active (on the site)"], ["archived", "Archived (hidden)"]]} />
+              <Select name="status" label="Status" hint="Draft and Archived are hidden. Active is public; set every variant's stock to 0 to mark an active product sold out." empty={null} defaultValue={p?.status ?? "draft"} options={[["draft", "Draft (hidden)"], ["active", "Active (on the site)"], ["archived", "Archived (hidden)"]]} />
               <Text name="sortOrder" label="Sort order" defaultValue={p?.sortOrder ?? 0} hint="Lower shows first in “Featured”." />
             </Section>
             <Section title="Organise">
