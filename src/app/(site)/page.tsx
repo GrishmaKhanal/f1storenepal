@@ -17,7 +17,7 @@ export default async function Home() {
   const [s, c, newest, all] = await Promise.all([getSettings(), getCatalog(), getNewest(40), getProducts()]);
   const heroProduct = all.find((p) => p.id === s.heroProductId) ?? null;
   const featured = c.drivers.filter((d) => d.featured);
-  const accessories = c.categories.filter((x) => x.isAccessory);
+  const accessories = c.categories.filter((x) => x.isAccessory && x.count > 0);
   const tabs = c.categories.filter((x) => x.showAsTab).map((x) => ({ key: x.slug, label: x.name }));
 
   return (
@@ -83,9 +83,9 @@ export default async function Home() {
         </section>
       )}
 
-      {accessories.length > 0 && (
-        <section className={`${wrap} pt-[72px]`}>
-          <SectionHead title="ACCESSORIES" href="/accessories" link="All accessories" />
+      <section className={`${wrap} pt-[72px]`}>
+        <SectionHead title="ACCESSORIES" href={accessories.length > 0 ? "/accessories" : undefined} link={accessories.length > 0 ? "All accessories" : undefined} />
+        {accessories.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
             {accessories.map((a) => (
               <Link key={a.slug} href={paths.category(a.slug)} className="flex aspect-[1.2] flex-col justify-between rounded-[14px] bg-ink p-5 text-paper transition-colors duration-200 hover:bg-red hover:text-white">
@@ -96,8 +96,10 @@ export default async function Home() {
               </Link>
             ))}
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="rounded-[14px] border border-rule bg-white px-5 py-8 text-center font-display text-xl text-faint">Coming soon</div>
+        )}
+      </section>
 
       {s.serviceAreas.length > 0 && (
         <section className={`${wrap} pt-[72px]`}>

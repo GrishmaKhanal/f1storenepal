@@ -84,7 +84,7 @@ export function MegaNav({ data }: { data: NavData }) {
         <nav aria-label="Shop" className="no-scrollbar hidden min-w-0 flex-1 overflow-x-auto lg:flex">
           {trigger("d", "Shop by Driver")}
           {trigger("t", "Shop by Team")}
-          {trigger("a", "Accessories")}
+          {data.accessories.length > 0 && trigger("a", "Accessories")}
           <Link href="/new" onMouseEnter={() => setMenu(null)} className="px-3 py-[26px] text-[14.5px] font-semibold whitespace-nowrap text-red hover:text-ink">
             New In
           </Link>
@@ -164,7 +164,7 @@ export function MegaNav({ data }: { data: NavData }) {
               </div>
             </>
           )}
-          {menu === "a" && (
+          {menu === "a" && data.accessories.length > 0 && (
             <>
               <MenuIntro title={["ACCESS-", "ORIES"]} body="Gifts and garage pieces." href="/accessories" link="All accessories" />
               <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-2.5">
@@ -205,13 +205,15 @@ export function MegaNav({ data }: { data: NavData }) {
               </Link>
             ))}
           </MobileGroup>
-          <MobileGroup title="Accessories" href="/accessories">
-            {data.accessories.map((a) => (
-              <Link key={a.slug} href={`/accessories/${a.slug}`} className="py-2.5 text-[15px] font-semibold">
-                {a.name} <span className="font-normal text-faint">· {a.count}</span>
-              </Link>
-            ))}
-          </MobileGroup>
+          {data.accessories.length > 0 && (
+            <MobileGroup title="Accessories" href="/accessories">
+              {data.accessories.map((a) => (
+                <Link key={a.slug} href={`/accessories/${a.slug}`} className="py-2.5 text-[15px] font-semibold">
+                  {a.name} <span className="font-normal text-faint">· {a.count}</span>
+                </Link>
+              ))}
+            </MobileGroup>
+          )}
           {data.instagramUrl && (
             <a href={data.instagramUrl} target="_blank" rel="noopener" className="flex items-center gap-2 font-semibold">
               <InstagramIcon /> Follow us on Instagram

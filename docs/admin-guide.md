@@ -48,6 +48,7 @@ Quick stock change: on the **Products** list, type the new number next to a vari
 - **Teams**: use **Edit team** in the Teams list or a driver's team cell to change the name/spelling, colour, intro text, or logo.
 - **Drivers**: use **Edit driver** in the Drivers list to change the name, number, team, intro, or portrait. Driver portraits appear on the home page and public Drivers page. On a driver's edit page, use **Edit team: [name]** to update its associated team's spelling, colour, or logo.
 - **Categories**: tick **List under Accessories** for caps, keychains etc.; tick **Tab on "New in"** to add a filter tab on the home page.
+- Empty accessory categories stay editable in admin but are hidden from the home page and navigation. The home page shows “Coming soon” until an accessory has active products.
 - Unticking **Show on site** hides one without deleting it. Product counts update by themselves.
 
 ## Media
