@@ -80,6 +80,32 @@
   .rise {
     animation: rise 420ms var(--ease-out-soft) both;
   }
+  @keyframes gallery-enter-from-right {
+    from {
+      opacity: 0.65;
+      transform: translateX(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes gallery-enter-from-left {
+    from {
+      opacity: 0.65;
+      transform: translateX(-18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .gallery-slide-from-right {
+    animation: gallery-enter-from-right 220ms var(--ease-out-soft) both;
+  }
+  .gallery-slide-from-left {
+    animation: gallery-enter-from-left 220ms var(--ease-out-soft) both;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
