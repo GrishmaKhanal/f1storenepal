@@ -33,7 +33,7 @@ export function Gallery({ images, name }: { images: Img[]; name: string }) {
   );
 }
 
-export function BuyBox({ product, variants, lowStock }: { product: { slug: string; name: string; image: string | null }; variants: VariantView[]; lowStock: number }) {
+export function BuyBox({ product, variants, lowStock, instagramDmUrl }: { product: { slug: string; name: string; image: string | null }; variants: VariantView[]; lowStock: number; instagramDmUrl: string }) {
   const { add } = useBag();
   const named = variants.filter((v) => v.label);
   const firstAvailable = variants.find((v) => v.available) ?? variants[0];
@@ -45,7 +45,7 @@ export function BuyBox({ product, variants, lowStock }: { product: { slug: strin
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="text-[28px] font-semibold tabular-nums">{v.price != null ? rs(v.price) : <span className="text-faint">Ask on Instagram</span>}</div>
+      <div className="text-[28px] font-semibold tabular-nums">{v.price != null ? rs(v.price) : <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="text-faint underline">DM us for price</a>}</div>
 
       {named.length > 0 && (
         <fieldset>
@@ -70,7 +70,7 @@ export function BuyBox({ product, variants, lowStock }: { product: { slug: strin
         </fieldset>
       )}
 
-      <StockNote v={v} lowStock={lowStock} />
+      <StockNote v={v} lowStock={lowStock} instagramDmUrl={instagramDmUrl} />
 
       {v.available && v.price != null ? (
         <div className="flex flex-wrap items-center gap-3">
@@ -84,17 +84,17 @@ export function BuyBox({ product, variants, lowStock }: { product: { slug: strin
           </button>
         </div>
       ) : (
-        <button type="button" disabled className="rounded-full bg-[#d9d6d0] px-7 py-4 text-[15px] font-semibold text-white">
-          {v.price == null ? "Not available online" : "Sold out"}
-        </button>
+        <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-red px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-red-hot">
+          {v.price == null ? "DM us on Instagram" : "DM us about a restock"} ↗
+        </a>
       )}
     </div>
   );
 }
 
-function StockNote({ v, lowStock }: { v: VariantView; lowStock: number }) {
+function StockNote({ v, lowStock, instagramDmUrl }: { v: VariantView; lowStock: number; instagramDmUrl: string }) {
   if (v.stock == null) return <p className="flex items-center gap-2 text-sm text-muted"><Dot c="#1a9b4b" /> Available</p>;
-  if (v.stock <= 0) return <p className="flex items-center gap-2 text-sm text-muted"><Dot c="#9a958d" /> Sold out. DM us to ask about a restock.</p>;
+  if (v.stock <= 0) return <p className="flex items-center gap-2 text-sm text-muted"><Dot c="#9a958d" /> <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="underline">Sold out. DM us to ask about a restock.</a></p>;
   if (v.stock <= lowStock) return <p className="flex items-center gap-2 text-sm font-semibold text-red"><Dot c="#e10600" /> Only {v.stock} left</p>;
   return <p className="flex items-center gap-2 text-sm text-muted"><Dot c="#1a9b4b" /> In stock</p>;
 }

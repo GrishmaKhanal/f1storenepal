@@ -6,6 +6,7 @@ import { categories, drivers, media, products, productImages, productVariants, s
 import { defaultSettings, seedCategories, seedDrivers, seedProducts, seedTeams } from "@/content/seed";
 import { mediaSrcSet, mediaUrl } from "./media-url";
 import { slugify } from "./slug";
+import { hasAvailableStock } from "./product-stock";
 
 // Cache tags. Admin writes expire these so public pages update without a redeploy.
 export const TAGS = { settings: "settings", catalog: "catalog", products: "products" } as const;
@@ -139,7 +140,7 @@ async function _getProducts(): Promise<ProductView[]> {
       category: cat ? { slug: cat.slug, name: cat.name, isAccessory: cat.isAccessory } : null,
       images: imgs.filter((i) => i.productId === p.id).map((i) => toImg(i.m)),
       variants,
-      inStock: variants.some((v) => v.available),
+      inStock: hasAvailableStock(variants),
     };
   });
 }

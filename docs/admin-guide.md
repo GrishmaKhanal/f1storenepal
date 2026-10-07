@@ -34,7 +34,7 @@ For existing items, select **Edit** in the product row on the Products list.
 | Description | What it is, scale, what's in the box. A blank line starts a new paragraph. |
 | Brand, Scale, Badge | Badge shows on the card: New, Bestseller, Pre-order (Pre-order also tells Google it's a pre-order). |
 | Images | **Upload** one or several images at once, or add images from the library. The first is the main photo; use ← → to reorder or remove images. White-background photos look best. Max 4 MB each. |
-| Price | In rupees. Variants can override it. Leave empty and tick "No price" to show "Ask on Instagram" instead. |
+| Price | In rupees. Variants can override it. Leave empty and tick "No price"; the product page shows a direct **DM us on Instagram** link for pricing. Product cards show "Ask on Instagram". |
 | Variants | One row with no label for a simple product. For sizes or options, add a row per option with a label (Adult, Kids, S, M, L). |
 | Stock | Per variant. **Empty = not tracked** (always available). **0 = sold out.** Use **Mark all sold out** to set every variant to 0. Stock goes down automatically when someone orders. |
 | Team / Driver / Category | Puts the product on those pages and in the menus. |

@@ -11,7 +11,7 @@ import type { Quote } from "@/lib/pricing";
 const rs = (n: number) => `Rs ${n.toLocaleString("en-IN")}`;
 const input = "h-12 w-full rounded-[10px] border border-rule bg-white px-4 text-[15px] outline-none transition-colors focus:border-ink aria-[invalid=true]:border-red";
 
-export function CheckoutForm({ zones, freeOver, payments, instagramUrl }: { zones: Zone[]; freeOver: number | null; payments: PaymentMethod[]; instagramUrl: string | null }) {
+export function CheckoutForm({ zones, freeOver, payments, instagramDmUrl }: { zones: Zone[]; freeOver: number | null; payments: PaymentMethod[]; instagramDmUrl: string }) {
   const { items, setQty, remove, clear, ready } = useBag();
   const router = useRouter();
   const [zone, setZone] = useState(zones[0]?.name ?? "");
@@ -134,7 +134,7 @@ export function CheckoutForm({ zones, freeOver, payments, instagramUrl }: { zone
                     {it.variantLabel && <span className="text-xs text-faint">{it.variantLabel}</span>}
                     {bad && (
                       <span className="text-xs font-semibold text-red">
-                        {bad.reason === "stock" ? (bad.available ? `Only ${bad.available} left` : "Sold out") : bad.reason === "no-price" ? "Not available online" : "No longer available"}
+                        {bad.reason === "stock" ? (bad.available ? `Only ${bad.available} left` : <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="underline">Sold out — DM us for a restock</a>) : bad.reason === "no-price" ? <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="underline">DM us on Instagram for pricing</a> : "No longer available"}
                       </span>
                     )}
                     <div className="flex items-center justify-between">
@@ -158,11 +158,9 @@ export function CheckoutForm({ zones, freeOver, payments, instagramUrl }: { zone
         <button disabled={pending || !q || problems.length > 0 || !q.lines.length} className="cursor-pointer rounded-full bg-red py-4 text-[15px] font-semibold text-white transition-colors hover:bg-red-hot disabled:cursor-not-allowed disabled:opacity-50">
           {pending ? "Placing order…" : q ? `Place order · ${rs(q.total)}` : "Checking prices…"}
         </button>
-        {instagramUrl && (
-          <p className="text-center text-xs text-faint">
-            Rather order by DM? <a href={instagramUrl} target="_blank" rel="noopener" className="underline">Message us on Instagram</a>
-          </p>
-        )}
+        <p className="text-center text-xs text-faint">
+          Rather order by DM? <a href={instagramDmUrl} target="_blank" rel="noopener noreferrer" className="underline">DM us on Instagram</a>
+        </p>
       </aside>
     </form>
   );
