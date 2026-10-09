@@ -182,8 +182,10 @@ export function MegaNav({ data }: { data: NavData }) {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`fixed inset-x-0 top-[73px] bottom-0 overflow-y-auto bg-white transition-all duration-300 ease-out-soft lg:hidden ${mobile ? "visible opacity-100" : "invisible opacity-0"}`}>
+      {/* Mobile menu. Hangs off the header rather than `fixed`: the header's
+          backdrop-blur makes it the containing block for fixed children, and the
+          announcement strip above means its top isn't always 73px. */}
+      <div className={`absolute inset-x-0 top-full h-[calc(100dvh-72px)] overflow-y-auto border-t border-rule bg-white transition-all duration-300 ease-out-soft lg:hidden ${mobile ? "visible opacity-100" : "invisible opacity-0"}`}>
         <div className="flex flex-col gap-8 px-4 py-6">
           <div className="flex gap-2">
             <Link href="/new" className="rounded-full bg-red px-4 py-2 text-sm font-semibold text-white">New In</Link>
