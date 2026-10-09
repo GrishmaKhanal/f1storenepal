@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { BuyBox, Gallery } from "@/components/ProductBuy";
 import { ProductGrid } from "@/components/ProductCard";
 import { getProduct, getProducts, getSettings } from "@/lib/data";
+import { deliveryFeeFor } from "@/lib/pricing";
 import { abs, paths, SITE_URL } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -53,6 +54,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       : [["Shop", "/shop"], [p.name, paths.product(p.slug)]];
 
   const priced = p.variants.filter((v) => v.price != null);
+  // Shipping goes in the markup only while it's one flat fee everywhere: per-zone fees
+  // don't map onto schema.org's country/region destinations.
+  const flatZone = new Set(s.deliveryZones.map((z) => z.fee)).size === 1 ? s.deliveryZones[0] : null;
   const offer = (v: (typeof p.variants)[number]) => ({
     "@type": "Offer",
     url: abs(paths.product(p.slug)),
@@ -61,6 +65,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
     availability: v.available ? (p.badge?.toLowerCase() === "pre-order" ? "https://schema.org/PreOrder" : "https://schema.org/InStock") : "https://schema.org/OutOfStock",
     itemCondition: "https://schema.org/NewCondition",
     seller: { "@id": `${SITE_URL}/#store` },
+    shippingDetails: flatZone
+      ? {
+          "@type": "OfferShippingDetails",
+          shippingDestination: { "@type": "DefinedRegion", addressCountry: "NP" },
+          shippingRate: { "@type": "MonetaryAmount", value: deliveryFeeFor(v.price!, flatZone, s.freeDeliveryOver), currency: "NPR" },
+        }
+      : undefined,
   });
 
   const details = [
