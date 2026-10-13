@@ -18,7 +18,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
           instagramUrl: s.instagramUrl,
           drivers: c.drivers.map((d) => ({ slug: d.slug, name: d.name, number: d.number })),
           teams: c.teams.map((t) => ({ slug: t.slug, name: t.name, color: t.color })),
-          accessories: c.categories.filter((x) => x.isAccessory).map((x) => ({ slug: x.slug, name: x.name, count: x.count })),
+          accessories: c.categories.filter((x) => x.isAccessory && x.count > 0).map((x) => ({ slug: x.slug, name: x.name, count: x.count })),
         }}
       />
       <main id="main" className="min-h-[60vh]">{children}</main>

@@ -17,7 +17,7 @@ export default async function Home() {
   const [s, c, newest, all] = await Promise.all([getSettings(), getCatalog(), getNewest(40), getProducts()]);
   const heroProduct = all.find((p) => p.id === s.heroProductId) ?? null;
   const featured = c.drivers.filter((d) => d.featured);
-  const accessories = c.categories.filter((x) => x.isAccessory);
+  const accessories = c.categories.filter((x) => x.isAccessory && x.count > 0);
   const tabs = c.categories.filter((x) => x.showAsTab).map((x) => ({ key: x.slug, label: x.name }));
 
   return (
@@ -30,10 +30,15 @@ export default async function Home() {
           <SectionHead title="SHOP BY TEAM" href="/teams" link="All teams" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
             {c.teams.map((t) => (
-              <Link key={t.slug} href={paths.team(t.slug)} className="flex flex-col gap-7 rounded-[14px] border border-rule bg-white px-[18px] pt-[18px] pb-4 transition-all duration-200 ease-out-soft hover:-translate-y-[3px] hover:border-ink hover:text-ink">
-                <span className="h-1.5 w-11 rounded-[3px]" style={{ background: t.color ?? "#111" }} />
-                <span className="flex items-end justify-between gap-2">
-                  <span className="font-display text-[23px] leading-none font-bold">{t.name}</span>
+              <Link key={t.slug} href={paths.team(t.slug)} className="group overflow-hidden rounded-[14px] border border-rule bg-white transition-all duration-200 ease-out-soft hover:-translate-y-[3px] hover:border-ink hover:text-ink">
+                <span className="relative flex aspect-[4/1] items-center justify-center overflow-hidden px-2">
+                  {t.logo ? <Img img={t.logo} sizes="(max-width: 640px) 50vw, 220px" alt={`${t.name} 2026 Formula 1 car`} className="h-full w-full object-contain transition-transform duration-300 ease-out-soft group-hover:scale-105" /> : <span className="h-1.5 w-11 rounded-[3px]" style={{ background: t.color ?? "#111" }} />}
+                </span>
+                <span className="flex items-end justify-between gap-2 border-t border-rule px-[18px] py-3.5">
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: t.color ?? "#111" }} />
+                    <span className="font-display text-[23px] leading-none font-bold">{t.name}</span>
+                  </span>
                   {t.count > 0 && <span className="font-mono text-[11px] text-ghost">{t.count}</span>}
                 </span>
               </Link>
@@ -49,7 +54,7 @@ export default async function Home() {
             {featured.map((d) => (
               <Link key={d.slug} href={paths.driver(d.slug)} className="group flex snap-start flex-col overflow-hidden rounded-[14px] border border-rule bg-white transition-colors hover:border-ink hover:text-ink">
                 <div className="stripes relative flex aspect-[4/5] items-end overflow-hidden p-3.5">
-                  {d.portrait && <Img img={d.portrait} sizes="220px" alt={d.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-soft group-hover:scale-105" />}
+                  {d.portrait && <Img img={d.portrait} sizes="220px" alt={d.name} className="absolute inset-0 h-full w-full object-cover object-top origin-top transition-transform duration-500 ease-out-soft group-hover:scale-105" />}
                   <span className="display absolute top-2.5 right-3.5 text-[64px] italic" style={{ color: d.team?.color ?? "#111" }}>
                     {d.number}
                   </span>
@@ -78,9 +83,9 @@ export default async function Home() {
         </section>
       )}
 
-      {accessories.length > 0 && (
-        <section className={`${wrap} pt-[72px]`}>
-          <SectionHead title="ACCESSORIES" href="/accessories" link="All accessories" />
+      <section className={`${wrap} pt-[72px]`}>
+        <SectionHead title="ACCESSORIES" href={accessories.length > 0 ? "/accessories" : undefined} link={accessories.length > 0 ? "All accessories" : undefined} />
+        {accessories.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
             {accessories.map((a) => (
               <Link key={a.slug} href={paths.category(a.slug)} className="flex aspect-[1.2] flex-col justify-between rounded-[14px] bg-ink p-5 text-paper transition-colors duration-200 hover:bg-red hover:text-white">
@@ -91,8 +96,10 @@ export default async function Home() {
               </Link>
             ))}
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="rounded-[14px] border border-rule bg-white px-5 py-8 text-center font-display text-xl text-faint">Coming soon</div>
+        )}
+      </section>
 
       {s.serviceAreas.length > 0 && (
         <section className={`${wrap} pt-[72px]`}>

@@ -64,6 +64,7 @@ export default async function ProductsAdmin({ searchParams }: PageProps<"/admin/
                 <th className={th}>Price</th>
                 <th className={th}>Stock</th>
                 <th className={th}>Status</th>
+                <th className={th}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -71,6 +72,7 @@ export default async function ProductsAdmin({ searchParams }: PageProps<"/admin/
                 const img = imgs.find((i) => i.productId === p.id)?.m;
                 const team = ts.find((t) => t.id === p.teamId);
                 const cat = cs.find((c) => c.id === p.categoryId);
+                const soldOut = p.status === "active" && vs.length > 0 && vs.every((v) => v.stock === 0);
                 return (
                   <tr key={p.id} className="border-b border-rule last:border-0 hover:bg-paper/60">
                     <td className={td}>
@@ -107,8 +109,9 @@ export default async function ProductsAdmin({ searchParams }: PageProps<"/admin/
                       </div>
                     </td>
                     <td className={td}>
-                      <StatusPill live={p.status === "active"} on="Active" off={p.status === "draft" ? "Draft" : "Archived"} />
+                      <StatusPill live={p.status === "active" && !soldOut} on="Active" off={soldOut ? "Sold out" : p.status === "draft" ? "Draft" : "Archived"} />
                     </td>
+                    <td className={td}><Link href={`${base}/${p.id}`} aria-label={`Edit ${p.name}`} className="text-xs font-semibold text-red hover:underline">Edit</Link></td>
                   </tr>
                 );
               })}

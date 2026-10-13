@@ -22,7 +22,7 @@ export default async function DriversAdmin() {
       {rows.length ? (
         <div className="overflow-x-auto rounded-[14px] border border-rule bg-white">
           <table className="w-full text-sm">
-            <thead className="border-b border-rule"><tr><th className={th}>#</th><th className={th}>Driver</th><th className={th}>Team</th><th className={th}>Active products</th><th className={th}>Home page</th><th className={th}>Status</th></tr></thead>
+            <thead className="border-b border-rule"><tr><th className={th}>#</th><th className={th}>Driver</th><th className={th}>Team</th><th className={th}>Active products</th><th className={th}>Home page</th><th className={th}>Status</th><th className={th}>Actions</th></tr></thead>
             <tbody>
               {rows.map((d) => {
                 const t = ts.find((x) => x.id === d.teamId);
@@ -30,10 +30,11 @@ export default async function DriversAdmin() {
                   <tr key={d.id} className="border-b border-rule last:border-0 hover:bg-paper/60">
                     <td className={`${td} font-mono text-xs text-ink-5`}>{d.number}</td>
                     <td className={td}><Link href={`${base}/${d.id}`} className="font-semibold hover:text-red">{d.name}</Link></td>
-                    <td className={`${td} text-ink-4`}>{t && <span className="mr-1.5 inline-block h-2 w-2 rounded-full" style={{ background: t.color ?? "#111" }} />}{t?.name ?? "—"}</td>
+                    <td className={`${td} text-ink-4`}>{t ? <span className="inline-flex items-center gap-2"><span className="inline-block h-2 w-2 rounded-full" style={{ background: t.color ?? "#111" }} />{t.name}<Link href={`${ADMIN}/teams/${t.id}`} aria-label={`Edit ${t.name} team`} className="text-xs font-semibold text-ink-5 underline decoration-dotted underline-offset-2 hover:text-red">Edit team</Link></span> : "—"}</td>
                     <td className={`${td} tabular-nums`}>{counts.find((c) => c.id === d.id)?.n ?? 0}</td>
                     <td className={td}>{d.featured ? <span className="text-xs font-semibold text-red">Featured</span> : <span className="text-xs text-ink-5">—</span>}</td>
                     <td className={td}><StatusPill live={d.published} /></td>
+                    <td className={td}><Link href={`${base}/${d.id}`} className="text-xs font-semibold text-red hover:underline">Edit driver</Link></td>
                   </tr>
                 );
               })}

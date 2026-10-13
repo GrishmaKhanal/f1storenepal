@@ -253,9 +253,9 @@ export function ImagesField({ initial, library }: { initial: MediaLite[]; librar
   return (
     <div className="space-y-2" aria-labelledby={id}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <span id={id} className="text-sm font-medium">Images <span className="font-normal text-ink-5">· first is the main photo</span></span>
+        <span id={id} className="text-sm font-medium">Images <span className="font-normal text-ink-5">· upload multiple or add from library; first is the main photo</span></span>
         <div className="flex items-center gap-3">
-          <button type="button" onClick={() => setPicking(true)} className="cursor-pointer text-sm underline">From library</button>
+          <button type="button" onClick={() => setPicking(true)} className="cursor-pointer text-sm underline">Add from library</button>
           <UploadButton multiple pending={up.pending} onFiles={(f) => up.run(f, (m) => { setLib((l) => [m, ...l]); update((xs) => [...xs, m]); })} />
         </div>
       </div>
@@ -344,10 +344,15 @@ export function VariantsEditor({ initial }: { initial: VariantRow[] }) {
         </table>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <button type="button" onClick={() => update((xs) => [...xs, { id: null, label: null, sku: null, price: null, stock: null, key: `n${Date.now()}` }])} className="cursor-pointer rounded-full border border-rule-strong bg-white px-3.5 py-1.5 text-sm font-medium hover:border-ink">
-          + Add variant
-        </button>
-        <span className="text-xs text-ink-5">Empty stock = not tracked (always available). 0 = sold out. Empty price = product price.</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <button type="button" onClick={() => update((xs) => [...xs, { id: null, label: null, sku: null, price: null, stock: null, key: `n${Date.now()}` }])} className="cursor-pointer rounded-full border border-rule-strong bg-white px-3.5 py-1.5 text-sm font-medium hover:border-ink">
+            + Add variant
+          </button>
+          <button type="button" onClick={() => update((xs) => xs.map((x) => ({ ...x, stock: 0 })))} className="cursor-pointer rounded-full border border-rule-strong bg-white px-3.5 py-1.5 text-sm font-medium hover:border-ink">
+            Mark all sold out
+          </button>
+        </div>
+        <span className="text-xs text-ink-5">0 = sold out. Empty stock = not tracked (always available). Empty price = product price.</span>
       </div>
     </div>
   );

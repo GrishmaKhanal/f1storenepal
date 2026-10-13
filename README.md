@@ -1,6 +1,7 @@
 # Lights Out Nepal
 
 Next.js 16 storefront for Lights Out Nepal ([Instagram](https://www.instagram.com/lightsoutnepal/)), selling F1 merch and diecast cars with delivery anywhere in Nepal. Shop by driver, team or accessory, guest checkout (no customer accounts), and a built-in admin at a secret URL set by `ADMIN_PATH`.
+**Live site:** [lightsoutnepal.bit-overflow.com](https://lightsoutnepal.bit-overflow.com/)
 
 Everything on the site is edited in the admin: products, variants and stock, teams, drivers, categories, images, the hero, the announcement strip, delivery fees, payment methods and page copy. Orders land in the admin's **Orders** inbox.
 
