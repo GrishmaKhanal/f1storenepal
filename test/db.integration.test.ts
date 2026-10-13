@@ -56,11 +56,13 @@ const customer = {
   customerName: "Test Customer",
   phone: "9800000000",
   email: null,
-  city: "Birtamode",
+  city: "Jhapa",
+  province: "Koshi",
   address: "Main road",
+  landmark: null,
+  mapUrl: null,
+  mapAddress: null,
   note: null,
-  deliveryZone: "Jhapa",
-  paymentMethod: "cod",
 };
 
 async function variantFor(nameLike: string, label: string | null = null) {
@@ -91,7 +93,9 @@ test("checkout takes stock, prices from the DB, and refuses to oversell", async 
   const { eq } = await import("drizzle-orm");
   const [o] = await db.select().from(orders).where(eq(orders.id, order.id));
   assert.equal(o.subtotal, 2 * v.price!);
-  const fee = defaultSettings.deliveryZones.find((z) => z.name === customer.deliveryZone)!.fee;
+  // Jhapa has its own delivery area in the starter settings.
+  assert.equal(o.deliveryZone, "Jhapa");
+  const fee = defaultSettings.deliveryZones.find((z) => z.name === "Jhapa")!.fee;
   assert.equal(o.deliveryFee, fee);
   assert.equal(o.total, o.subtotal + fee);
 
@@ -123,12 +127,11 @@ test("cancelling returns stock; un-cancelling takes it again", async (t) => {
   assert.equal((await variantFor("Acrylic display case")).stock, 7);
 });
 
-test("unknown zone or payment method is rejected before touching stock", async (t) => {
+test("unknown district is rejected before touching stock", async (t) => {
   if (!reachable) return t.skip("no local Postgres");
   const { placeOrder, CheckoutError } = await import("../src/lib/orders");
   const { defaultSettings } = await import("../src/content/seed");
   const v = await variantFor("keychain");
-  await assert.rejects(placeOrder([{ variantId: v.id, qty: 1 }], { ...customer, deliveryZone: "Mars" }, defaultSettings), CheckoutError);
-  await assert.rejects(placeOrder([{ variantId: v.id, qty: 1 }], { ...customer, paymentMethod: "crypto" }, defaultSettings), CheckoutError);
+  await assert.rejects(placeOrder([{ variantId: v.id, qty: 1 }], { ...customer, city: "Mars" }, defaultSettings), CheckoutError);
   assert.equal((await variantFor("keychain")).stock, 12);
 });

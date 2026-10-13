@@ -146,11 +146,20 @@ export const orders = pgTable(
     customerName: text("customer_name").notNull(),
     phone: text("phone").notNull(),
     email: text("email"),
+    // The district (one of Nepal's 77). Orders before the district picker hold free text.
     city: text("city").notNull(),
+    province: text("province"),
     address: text("address").notNull(),
+    landmark: text("landmark"),
+    // A Google Maps link to the customer's pin (see src/lib/map-link.ts).
+    mapUrl: text("map_url"),
+    // Google's address for that pin, as the customer saw it at checkout.
+    mapAddress: text("map_address"),
     note: text("note"),
     deliveryZone: text("delivery_zone"),
-    paymentMethod: text("payment_method").notNull(),
+    // Customers no longer choose at checkout; payment is agreed on the confirmation call.
+    // Older orders keep the method they picked.
+    paymentMethod: text("payment_method"),
     subtotal: integer("subtotal").notNull(),
     deliveryFee: integer("delivery_fee").notNull(),
     total: integer("total").notNull(),

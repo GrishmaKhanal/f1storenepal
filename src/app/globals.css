@@ -80,6 +80,42 @@
   .rise {
     animation: rise 420ms var(--ease-out-soft) both;
   }
+  /* Bag drawer after an add: the banner drops in, the new line slides in and glows green
+     briefly, then its tick pops in. */
+  @keyframes bag-banner {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  .bag-banner {
+    animation: bag-banner 260ms var(--ease-out-soft) 120ms both;
+  }
+  @keyframes bag-slide {
+    from {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+  }
+  @keyframes bag-glow {
+    from {
+      background-color: rgb(26 155 75 / 0.1);
+    }
+  }
+  @keyframes bag-tick {
+    from {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+  }
+  .bag-tick {
+    animation: bag-tick 360ms cubic-bezier(0.34, 1.56, 0.64, 1) 360ms both;
+  }
+  .bag-added {
+    animation:
+      bag-slide 300ms var(--ease-out-soft) 140ms both,
+      bag-glow 1600ms ease-out 300ms both;
+  }
   @keyframes gallery-enter-from-right {
     from {
       opacity: 0.65;

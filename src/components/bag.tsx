@@ -29,6 +29,8 @@ type Ctx = {
   open: boolean;
   setOpen: (o: boolean) => void;
   ready: boolean;
+  // The line just added, so the drawer can call it out. n changes on every add.
+  added: { variantId: number; name: string; n: number } | null;
 };
 
 const BagCtx = createContext<Ctx | null>(null);
@@ -53,9 +55,8 @@ function read(): BagItem[] {
 export function BagProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<BagItem[]>([]);
   const [ready, setReady] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [toast, setToast] = useState("");
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [open, setOpenRaw] = useState(false);
+  const [added, setAdded] = useState<Ctx["added"]>(null);
 
   useEffect(() => {
     // localStorage is only readable after hydration.
@@ -80,10 +81,19 @@ export function BagProvider({ children }: { children: React.ReactNode }) {
       if (hit) return xs.map((x) => (x === hit ? { ...item, qty: Math.min(MAX_QTY, x.qty + qty) } : x));
       return [...xs, { ...item, qty: Math.min(MAX_QTY, qty) }];
     });
-    clearTimeout(timer.current);
-    setToast(`${item.name}${item.variantLabel ? ` (${item.variantLabel})` : ""} added to bag`);
-    timer.current = setTimeout(() => setToast(""), 2400);
+    setAdded((a) => ({ variantId: item.variantId, name: `${item.name}${item.variantLabel ? ` (${item.variantLabel})` : ""}`, n: (a?.n ?? 0) + 1 }));
+    setOpenRaw(true);
   }, []);
+
+  // Opening the bag yourself shows it plainly, without the last "added" callout.
+  const setOpen = useCallback((o: boolean) => {
+    if (o) setAdded(null);
+    setOpenRaw(o);
+  }, []);
+
+  // Stable, and a no-op on an empty bag: checkout calls it from an effect that lists it
+  // as a dependency, so a fresh function or a fresh [] each time would loop.
+  const clear = useCallback(() => setItems((xs) => (xs.length ? [] : xs)), []);
 
   const value = useMemo<Ctx>(
     () => ({
@@ -93,29 +103,19 @@ export function BagProvider({ children }: { children: React.ReactNode }) {
       add,
       setQty: (id, qty) => setItems((xs) => (qty <= 0 ? xs.filter((x) => x.variantId !== id) : xs.map((x) => (x.variantId === id ? { ...x, qty: Math.min(MAX_QTY, qty) } : x)))),
       remove: (id) => setItems((xs) => xs.filter((x) => x.variantId !== id)),
-      clear: () => setItems([]),
+      clear,
       open,
       setOpen,
       ready,
+      added,
     }),
-    [items, add, open, ready],
+    [items, add, clear, open, setOpen, ready, added],
   );
 
   return (
     <BagCtx.Provider value={value}>
       {children}
       <BagDrawer />
-      <div
-        aria-live="polite"
-        className={`pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-300 ease-out-soft ${toast ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
-      >
-        {toast && (
-          <div className="flex items-center gap-2.5 rounded-full bg-ink px-5 py-3.5 text-sm text-white shadow-lg">
-            <span className="text-red">●</span>
-            {toast}
-          </div>
-        )}
-      </div>
     </BagCtx.Provider>
   );
 }
@@ -135,7 +135,7 @@ export function BagButton() {
 }
 
 function BagDrawer() {
-  const { items, open, setOpen, setQty, remove, subtotal } = useBag();
+  const { items, open, setOpen, setQty, remove, subtotal, added } = useBag();
   const panel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -168,6 +168,18 @@ function BagDrawer() {
             ✕
           </button>
         </div>
+        <div role="status">
+          {added && (
+            <div key={added.n} className="bag-banner flex items-center gap-2.5 border-b border-online/20 bg-online/10 px-6 py-3 text-sm">
+              <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-online text-white" aria-hidden>
+                <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+              </span>
+              <span className="min-w-0 truncate">
+                <span className="font-semibold text-online">Added to bag</span> · {added.name}
+              </span>
+            </div>
+          )}
+        </div>
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
             <p className="text-muted">Your bag is empty.</p>
@@ -179,7 +191,7 @@ function BagDrawer() {
           <>
             <ul className="flex-1 divide-y divide-rule overflow-y-auto px-6">
               {items.map((it) => (
-                <li key={it.variantId} className="flex gap-4 py-4">
+                <li key={added?.variantId === it.variantId ? `${it.variantId}-${added.n}` : it.variantId} className={`-mx-6 flex gap-4 px-6 py-4 ${added?.variantId === it.variantId ? "bag-added" : ""}`}>
                   <Link href={`/products/${it.slug}`} onClick={() => setOpen(false)} className="stripes flex h-20 w-20 flex-none items-center justify-center overflow-hidden rounded-[10px] border border-rule bg-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     {it.image && <img src={it.image} alt="" className="h-full w-full object-contain mix-blend-multiply" />}
@@ -194,9 +206,16 @@ function BagDrawer() {
                       <span className="text-sm tabular-nums">{rs(it.price * it.qty)}</span>
                     </div>
                   </div>
-                  <button onClick={() => remove(it.variantId)} className="self-start text-xs text-faint underline hover:text-red" aria-label={`Remove ${it.name}`}>
-                    Remove
-                  </button>
+                  <div className="flex flex-col items-end justify-between">
+                    <button onClick={() => remove(it.variantId)} className="cursor-pointer text-xs text-faint underline hover:text-red" aria-label={`Remove ${it.name}`}>
+                      Remove
+                    </button>
+                    {added?.variantId === it.variantId && (
+                      <span className="bag-tick flex h-6 w-6 items-center justify-center rounded-full bg-online text-white" title="Added" aria-hidden>
+                        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                      </span>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -209,6 +228,9 @@ function BagDrawer() {
               <Link href="/checkout" onClick={() => setOpen(false)} className="block rounded-full bg-red py-4 text-center text-[15px] font-semibold text-white hover:bg-red-hot hover:text-white">
                 Checkout
               </Link>
+              <button onClick={() => setOpen(false)} className="mt-2 w-full cursor-pointer rounded-full py-3 text-center text-sm font-semibold hover:text-red">
+                Keep shopping
+              </button>
             </div>
           </>
         )}

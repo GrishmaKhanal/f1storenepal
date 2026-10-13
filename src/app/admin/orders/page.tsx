@@ -29,7 +29,7 @@ export default async function OrdersAdmin({ searchParams }: PageProps<"/admin/or
       {rows.length ? (
         <div className="overflow-x-auto rounded-[14px] border border-rule bg-white">
           <table className="w-full min-w-[720px] text-sm">
-            <thead className="border-b border-rule"><tr><th className={th}>Order</th><th className={th}>Customer</th><th className={th}>Area</th><th className={th}>Payment</th><th className={th}>Total</th><th className={th}>Status</th></tr></thead>
+            <thead className="border-b border-rule"><tr><th className={th}>Order</th><th className={th}>Customer</th><th className={th}>Area</th><th className={th}>Total</th><th className={th}>Status</th></tr></thead>
             <tbody>
               {rows.map((o) => (
                 <tr key={o.id} className="border-b border-rule last:border-0 hover:bg-paper/60">
@@ -39,7 +39,6 @@ export default async function OrdersAdmin({ searchParams }: PageProps<"/admin/or
                   </td>
                   <td className={td}>{o.customerName}<div className="text-xs text-ink-5">{o.phone}</div></td>
                   <td className={`${td} text-ink-4`}>{o.deliveryZone ?? o.city}</td>
-                  <td className={`${td} text-ink-4`}>{o.paymentMethod}</td>
                   <td className={`${td} tabular-nums`}>{rs(o.total)}</td>
                   <td className={td}><OrderPill status={o.status} /></td>
                 </tr>

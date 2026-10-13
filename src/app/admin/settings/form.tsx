@@ -55,10 +55,10 @@ export function SettingsForm({ s, heroImage, library, products }: { s: SiteSetti
       </Section>
 
       <Section title="Delivery & payment">
-        <Area name="deliveryZones" label="Delivery areas and fees (Rs)" rows={5} mono defaultValue={s.deliveryZones.map((z) => `${z.name} | ${z.fee}`).join("\n")} hint={pipeHint("Jhapa | 100")} />
+        <Area name="deliveryZones" label="Delivery areas and fees (Rs)" rows={5} mono defaultValue={s.deliveryZones.map((z) => `${z.name} | ${z.fee}`).join("\n")} hint={<>{pipeHint("Jhapa | 100")} Customers pick their district at checkout, and the fee comes from the first match: an area naming the district (<code>Jhapa</code>, or several: <code>Jhapa, Morang | 100</code>), then <code>Kathmandu Valley</code> for Kathmandu, Lalitpur and Bhaktapur, then one naming the province (<code>Rest of Koshi Province</code>). <b>The last line covers everywhere else.</b></>} />
         <Area name="serviceAreas" label="Towns you deliver to" rows={4} defaultValue={s.serviceAreas.join("\n")} hint="One per line. Listed on the home page and given to search engines as the area you serve. Empty = hidden." />
         <Text name="freeDeliveryOver" label="Free delivery over (Rs)" defaultValue={s.freeDeliveryOver} hint="Optional." />
-        <Area name="paymentMethods" label="Payment methods" rows={5} mono defaultValue={s.paymentMethods.map((p) => `${p.label} | ${p.instructions ?? ""}`).join("\n")} hint={pipeHint("eSewa | We'll message you with payment details.")} />
+        <Area name="paymentMethods" label="Payment methods" rows={5} mono defaultValue={s.paymentMethods.map((p) => `${p.label} | ${p.instructions ?? ""}`).join("\n")} hint={<>{pipeHint("eSewa | We'll message you with payment details.")} Customers don&apos;t pick one at checkout (you agree it on the call); this list tells search engines what you accept.</>} />
         <p className="text-xs text-ink-5">Payment instructions are public (shown at checkout). Don&apos;t paste account numbers you wouldn&apos;t want on the site; send them to customers directly.</p>
       </Section>
 

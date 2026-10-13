@@ -22,6 +22,34 @@
       "when": 1791301184187,
       "tag": "0002_instagram_location_fees",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791898703373,
+      "tag": "0003_order_landmark_map",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791900145595,
+      "tag": "0004_payment_agreed_on_call",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791902317879,
+      "tag": "0005_order_province",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791903449702,
+      "tag": "0006_order_map_address",
+      "breakpoints": true
     }
   ]
 }

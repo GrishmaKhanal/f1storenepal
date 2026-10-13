@@ -13,7 +13,8 @@ export default async function Checkout() {
     <>
       <PageHead crumbs={[["Checkout", "/checkout"]]} title="Checkout" intro="No account needed. We'll call or message you to confirm before anything ships." />
       <section className={`${wrap} pb-[72px]`}>
-        <CheckoutForm zones={s.deliveryZones} freeOver={s.freeDeliveryOver} payments={s.paymentMethods} instagramDmUrl={dmUrl} />
+        {/* A browser key: public by design, locked to this site's domain in Google Cloud. */}
+        <CheckoutForm freeOver={s.freeDeliveryOver} mapsKey={process.env.GOOGLE_MAPS_API_KEY || null} instagramDmUrl={dmUrl} />
       </section>
     </>
   );

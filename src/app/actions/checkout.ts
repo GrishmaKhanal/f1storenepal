@@ -1,21 +1,25 @@
 "use server";
 
 import { updateTag } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 import { hasDb } from "@/db";
 import { getSettings, TAGS } from "@/lib/data";
-import { CheckoutError, loadVariants, placeOrder } from "@/lib/orders";
+import { isEmail } from "@/lib/email";
+import { mapLink } from "@/lib/map-link";
+import { PROVINCES, provinceOf, zoneFor } from "@/lib/nepal";
+import { CheckoutError, loadVariants, notifyNewOrder, placeOrder } from "@/lib/orders";
 import { normalizeBag, quote, type BagLine, type Quote } from "@/lib/pricing";
 
 const Lines = z.array(z.object({ variantId: z.number().int().positive(), qty: z.number().int().positive() })).max(50);
 
 /** Server-side price and stock check for the bag, used by the checkout page. */
-export async function quoteBag(lines: BagLine[], zoneName: string | null): Promise<Quote> {
+export async function quoteBag(lines: BagLine[], district: string | null): Promise<Quote> {
   const parsed = Lines.safeParse(lines);
   if (!parsed.success || !hasDb) return { lines: [], problems: [], subtotal: 0, deliveryFee: 0, total: 0 };
   const bag = normalizeBag(parsed.data);
   const s = await getSettings();
-  const zone = s.deliveryZones.find((z) => z.name === zoneName) ?? null;
+  const zone = district ? zoneFor(district, s.deliveryZones) : null;
   return quote(bag, await loadVariants(bag.map((l) => l.variantId)), zone, s.freeDeliveryOver);
 }
 
@@ -26,13 +30,26 @@ const Customer = z.object({
     .trim()
     .transform((s) => s.replace(/[\s-]/g, ""))
     .pipe(z.string().regex(/^(\+?977)?\d{7,10}$/, "Enter a valid phone number.")),
-  email: z.union([z.literal(""), z.email("Enter a valid email or leave it empty.")]).transform((e) => e || null),
-  city: z.string().trim().min(2, "Enter your city or district.").max(120),
+  // Same check as the form's, so only a real-looking address is ever stored.
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .refine((e) => !e || isEmail(e), "Enter a valid email, like name@gmail.com, or leave it empty.")
+    .transform((e) => e || null),
+  province: z.enum(PROVINCES.map((p) => p.name), "Choose your province."),
+  city: z.string().trim().refine((d) => provinceOf(d) !== null, "Choose your district."),
   address: z.string().trim().min(4, "Enter your delivery address.").max(500),
+  landmark: z.string().trim().max(200).transform((n) => n || null),
+  mapUrl: z
+    .string()
+    .trim()
+    .max(2000)
+    .refine((s) => !s || mapLink(s) !== null, "Paste a Google Maps link, or use your current location.")
+    .transform((s) => (s ? mapLink(s) : null)),
+  mapAddress: z.string().trim().max(300).transform((n) => n || null),
   note: z.string().trim().max(1000).transform((n) => n || null),
-  deliveryZone: z.string().trim().max(120).transform((n) => n || null),
-  paymentMethod: z.string().trim().min(1, "Choose a payment method."),
-});
+}).refine((c) => provinceOf(c.city) === c.province, { path: ["city"], message: "That district isn't in the province you chose." });
 
 export type CheckoutState =
   | { ok: true; token: string }
@@ -56,21 +73,28 @@ export async function submitOrder(_: CheckoutState, fd: FormData): Promise<Check
     customerName: g("customerName"),
     phone: g("phone"),
     email: g("email"),
-    city: g("city"),
+    province: g("province"),
+    city: g("district"),
     address: g("address"),
+    landmark: g("landmark"),
+    mapUrl: g("mapUrl"),
+    mapAddress: g("mapAddress"),
     note: g("note"),
-    deliveryZone: g("deliveryZone"),
-    paymentMethod: g("paymentMethod"),
   });
   if (!parsed.success) {
-    const fields = Object.fromEntries(parsed.error.issues.map((i) => [String(i.path[0]), i.message]));
+    // The form's field is "district"; the column it lands in is "city".
+    const fields = Object.fromEntries(parsed.error.issues.map((i) => [String(i.path[0]) === "city" ? "district" : String(i.path[0]), i.message]));
     return { ok: false, error: "Check the highlighted fields.", fields };
   }
 
   try {
-    const order = await placeOrder(normalizeBag(bag), parsed.data, await getSettings());
+    // The pin's address only means something alongside the pin.
+    const c = { ...parsed.data, mapAddress: parsed.data.mapUrl ? parsed.data.mapAddress : null };
+    const order = await placeOrder(normalizeBag(bag), c, await getSettings());
     // Stock changed: product pages and "sold out" badges must refresh.
     updateTag(TAGS.products);
+    // After the response: the customer never waits on, or sees, a slow or failing mail server.
+    after(() => notifyNewOrder(order.id).catch((e) => console.error("Order email failed:", e)));
     return { ok: true, token: order.token };
   } catch (e) {
     if (e instanceof CheckoutError) return { ok: false, error: e.message, problems: e.problems };

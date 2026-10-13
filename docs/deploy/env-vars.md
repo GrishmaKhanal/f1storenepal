@@ -32,6 +32,11 @@ echo "SESSION_SECRET=$(openssl rand -base64 48)"
 | `S3_REGION` | no | yes | `auto` for R2, e.g. `ap-south-1` for AWS. |
 | `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | yes | production | A key scoped to this one bucket, read and write. |
 | `MEDIA_PUBLIC_URL` | no | production | Public CDN origin for the bucket, no trailing slash, e.g. `https://img.f1storenepal.com`. |
+| `GOOGLE_MAPS_API_KEY` | no (browser key) | optional | Map and place search for the customer's delivery pin at checkout. It's sent to the browser, so lock it down in Google Cloud: application restriction **HTTP referrers** (`https://yourdomain/*`, plus `http://localhost:3000/*` for dev) and API restriction **Maps JavaScript API** (the map), **Places API (New)** (place search) and **Geocoding API** (jumps the map to the district the customer picks; optional). Picking a pin needs the JavaScript API: the free Maps Embed API (an iframe) can only show a map, not report where the customer tapped. Google bills map loads, searches and geocodes beyond its free monthly usage, so the project needs billing enabled. Empty = customers share their location or paste a Google Maps link. Redeploy after changing it. |
+| `SMTP_HOST`, `SMTP_PORT` | no | optional | Mail server for order emails: "new order" to the store, and "order received" to customers who give an email. Gmail: `smtp.gmail.com`, `465`. Port 465 uses TLS; 587 uses STARTTLS. |
+| `SMTP_USER`, `SMTP_PASS` | yes | optional | Login for that server. Gmail needs 2-Step Verification and an **App Password** (Google Account → Security → App passwords); your normal password won't work. |
+| `SMTP_FROM` | no | optional | Sender, e.g. `Lights Out Nepal <you@gmail.com>`. Defaults to the store name and `SMTP_USER`. Gmail only sends as your own address or a verified alias. |
+| `ORDER_EMAIL_TO`, `ORDER_EMAIL_CC` | no | optional | Comma-separated store inbox for "new order" emails; the first `ORDER_EMAIL_TO` address also receives customers' replies to their confirmation. Nothing goes out without `SMTP_HOST`, `SMTP_USER` and `SMTP_PASS`. A failed send is logged and never affects the order. |
 
 ## Moving hosts
 

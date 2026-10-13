@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orderItems, orders, products } from "@/db/schema";
 import { ADMIN } from "@/lib/admin-path";
+import { mapLink } from "@/lib/map-link";
 import { orderNo, rs } from "@/lib/money";
 import { guard } from "../../_lib";
 import { card, OrderPill, PageHeader } from "../../_components/ui";
@@ -16,6 +17,8 @@ export default async function OrderDetail({ params }: PageProps<"/admin/orders/[
   if (!o) notFound();
   const items = await db.select({ i: orderItems, slug: products.slug }).from(orderItems).leftJoin(products, eq(products.id, orderItems.productId)).where(eq(orderItems.orderId, id));
   const phone = o.phone.replace(/\D/g, "");
+  // Re-checked on the way out too, so only a Google Maps link can ever become an href.
+  const pin = o.mapUrl ? mapLink(o.mapUrl) : null;
 
   return (
     <>
@@ -53,8 +56,15 @@ export default async function OrderDetail({ params }: PageProps<"/admin/orders/[
             <a href={`viber://chat?number=%2B${phone.length === 10 ? `977${phone}` : phone}`} className="underline">Viber</a>
           </p>
           {o.email && <p><a href={`mailto:${o.email}`} className="underline">{o.email}</a></p>}
-          <p className="whitespace-pre-line">{o.address}<br />{o.city}</p>
-          <p><span className="text-ink-5">Payment:</span> {o.paymentMethod}</p>
+          <p className="whitespace-pre-line">{o.address}<br />{o.city}{o.province && `, ${o.province} Province`}</p>
+          {o.landmark && <p><span className="text-ink-5">Landmark:</span> {o.landmark}</p>}
+          {pin && (
+            <p>
+              <a href={pin} target="_blank" rel="noopener noreferrer" className="font-semibold underline">Open location in Google Maps ↗</a>
+              {o.mapAddress && <span className="block text-ink-5">Pin: {o.mapAddress}</span>}
+            </p>
+          )}
+          {o.paymentMethod && <p><span className="text-ink-5">Payment (chosen at checkout):</span> {o.paymentMethod}</p>}
           {o.note && <p className="rounded-lg bg-paper p-3"><span className="text-ink-5">Customer note:</span> {o.note}</p>}
           <p className="font-mono text-xs text-ink-5">Placed {o.createdAt.toISOString().slice(0, 16).replace("T", " ")} UTC</p>
         </aside>

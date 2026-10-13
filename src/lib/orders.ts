@@ -3,6 +3,9 @@ import { randomBytes } from "node:crypto";
 import { and, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
 import { db, withTx, type Tx } from "@/db";
 import { orderItems, orders, products, productVariants, type OrderStatus, type SiteSettings } from "@/db/schema";
+import { getSettings } from "./data";
+import { zoneFor } from "./nepal";
+import { sendCustomerEmail, sendOrderEmail } from "./order-email";
 import { quote, type BagLine, type PricedVariant, type Quote } from "./pricing";
 
 /** Fresh price and stock rows for the variants in a bag. */
@@ -39,11 +42,13 @@ export type Customer = {
   customerName: string;
   phone: string;
   email: string | null;
-  city: string;
+  city: string; // district
+  province: string;
   address: string;
+  landmark: string | null;
+  mapUrl: string | null;
+  mapAddress: string | null;
   note: string | null;
-  deliveryZone: string | null;
-  paymentMethod: string;
 };
 
 export class CheckoutError extends Error {
@@ -61,9 +66,9 @@ export class CheckoutError extends Error {
  * last item can't both get it: the second one gets a CheckoutError.
  */
 export async function placeOrder(bag: BagLine[], c: Customer, s: SiteSettings) {
-  const zone = s.deliveryZones.find((z) => z.name === c.deliveryZone) ?? null;
-  if (s.deliveryZones.length && !zone) throw new CheckoutError("Choose a delivery area.");
-  if (!s.paymentMethods.some((p) => p.key === c.paymentMethod)) throw new CheckoutError("Choose a payment method.");
+  // The fee follows the district; the browser never gets to name the delivery area.
+  const zone = zoneFor(c.city, s.deliveryZones);
+  if (s.deliveryZones.length && !zone) throw new CheckoutError("Choose your district.");
 
   return withTx(async (tx) => {
     const variants = await loadVariants(
@@ -90,7 +95,7 @@ export async function placeOrder(bag: BagLine[], c: Customer, s: SiteSettings) {
     const token = randomBytes(12).toString("base64url");
     const [order] = await tx
       .insert(orders)
-      .values({ ...c, token, subtotal: q.subtotal, deliveryFee: q.deliveryFee, total: q.total })
+      .values({ ...c, deliveryZone: zone?.name ?? null, token, subtotal: q.subtotal, deliveryFee: q.deliveryFee, total: q.total })
       .returning({ id: orders.id, token: orders.token });
     await tx.insert(orderItems).values(
       q.lines.map((l) => ({
@@ -105,6 +110,18 @@ export async function placeOrder(bag: BagLine[], c: Customer, s: SiteSettings) {
     );
     return order;
   });
+}
+
+/**
+ * Emails the store about a new order, and the customer a confirmation when they gave
+ * an address. Needs SMTP (see order-email.ts). One failing doesn't stop the other.
+ */
+export async function notifyNewOrder(orderId: number) {
+  const [o] = await db.select().from(orders).where(eq(orders.id, orderId));
+  if (!o) return;
+  const [items, s] = await Promise.all([db.select().from(orderItems).where(eq(orderItems.orderId, orderId)), getSettings()]);
+  const sent = await Promise.allSettled([sendOrderEmail(o, items, s.storeName), sendCustomerEmail(o, items, s)]);
+  sent.forEach((r, i) => r.status === "rejected" && console.error(`Order email to the ${i ? "customer" : "store"} failed:`, r.reason));
 }
 
 /**
