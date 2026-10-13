@@ -9,7 +9,7 @@ import { emailSuggestion, isEmail } from "@/lib/email";
 import { PROVINCES, provinceOf } from "@/lib/nepal";
 import type { Quote } from "@/lib/pricing";
 import { LocationField } from "./location";
-import { forgetSaved, readSaved, writeSaved, type Saved } from "./saved";
+import { forgetSaved, readSaved, rememberOrder, writeSaved, type Saved } from "./saved";
 import { input } from "./styles";
 
 const rs = (n: number) => `Rs ${n.toLocaleString("en-IN")}`;
@@ -51,6 +51,7 @@ export function CheckoutForm({ freeOver, mapsKey, instagramDmUrl }: { freeOver: 
   useEffect(() => {
     if (state?.ok) {
       if (placed.current) writeSaved(placed.current);
+      rememberOrder(state.no, state.token);
       clear();
       router.replace(`/order/${state.token}`);
     }
@@ -127,6 +128,19 @@ export function CheckoutForm({ freeOver, mapsKey, instagramDmUrl }: { freeOver: 
 
         <fieldset className="flex flex-col gap-4">
           <legend className="display mb-4 text-[28px]">DELIVERY</legend>
+          {/* First, because pinning fills in the province, district and address below. */}
+          <LocationField
+            err={err("mapUrl")}
+            mapsKey={mapsKey}
+            district={district}
+            province={province}
+            initial={saved && { mapUrl: saved.mapUrl, mapAddress: saved.mapAddress }}
+            onAddress={fillAddress}
+            onDistrict={(d) => {
+              setDistrict(d);
+              setProvince(provinceOf(d) ?? "");
+            }}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <Choice
               label="Province"
@@ -174,18 +188,6 @@ export function CheckoutForm({ freeOver, mapsKey, instagramDmUrl }: { freeOver: 
               {freeOver != null && `Free delivery on orders over ${rs(freeOver)}.`}
             </p>
           )}
-          <LocationField
-            err={err("mapUrl")}
-            mapsKey={mapsKey}
-            district={district}
-            province={province}
-            initial={saved && { mapUrl: saved.mapUrl, mapAddress: saved.mapAddress }}
-            onAddress={fillAddress}
-            onDistrict={(d) => {
-              setDistrict(d);
-              setProvince(provinceOf(d) ?? "");
-            }}
-          />
           <div>
             <label htmlFor="f-address" className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-3 text-sm font-semibold">
               <span>

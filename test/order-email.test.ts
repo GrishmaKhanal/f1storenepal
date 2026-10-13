@@ -28,6 +28,7 @@ const order: Order = {
   deliveryFee: 150,
   total: 4449,
   adminNote: null,
+  customerUpdate: null,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -123,6 +124,7 @@ test("customer email confirms the order without anything the store keeps private
   assert.match(m.text, /We'll message or call 9800000000 to confirm/);
   assert.match(m.text, /YOUR ORDER \(F1N-1012\)\n- 1 × Mercedes W16: Rs 4,299/);
   assert.match(m.text, /View your order: https:\/\/shop\.test\/order\/tok/);
+  assert.match(m.text, /https:\/\/shop\.test\/track\?order=F1N-1012 with F1N-1012 and your phone number/);
   assert.match(m.text, /call 9812345678 or DM @lightsoutnepal on Instagram/);
   assert.match(m.html, /Ward 5<br>Main road<br>Jhapa, Koshi Province/);
   assert.match(m.html, /Mercedes W16/);

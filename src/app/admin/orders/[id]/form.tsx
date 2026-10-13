@@ -6,7 +6,7 @@ import { Area, Select } from "../../_components/fields";
 import { Popconfirm } from "../../_components/popconfirm";
 import { SaveForm } from "../../_components/save";
 
-export function OrderForm({ id, status, adminNote }: { id: number; status: OrderStatus; adminNote: string | null }) {
+export function OrderForm({ id, status, adminNote, customerUpdate }: { id: number; status: OrderStatus; adminNote: string | null; customerUpdate: string | null }) {
   return (
     <>
       <SaveForm action={updateOrder} label="Update order" className="space-y-4 rounded-[14px] border border-rule bg-white p-5">
@@ -19,6 +19,13 @@ export function OrderForm({ id, status, adminNote }: { id: number; status: Order
           defaultValue={status}
           options={[["new", "New"], ["confirmed", "Confirmed (customer called)"], ["paid", "Paid"], ["shipped", "Shipped"], ["delivered", "Delivered"], ["cancelled", "Cancelled (puts stock back)"]]}
           hint="Cancelling returns the items to stock. Moving a cancelled order back takes the stock again."
+        />
+        <Area
+          name="customerUpdate"
+          label="Update for the customer"
+          rows={2}
+          defaultValue={customerUpdate}
+          hint="Shown on the customer's order page under the status, e.g. “Sent with Pathao, arrives Friday” or a courier tracking number. Empty = hidden."
         />
         <Area name="adminNote" label="Private note" rows={3} defaultValue={adminNote} hint="Only visible here. E.g. tracking number, payment reference, call notes." />
       </SaveForm>

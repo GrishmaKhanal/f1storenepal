@@ -418,7 +418,7 @@ export async function updateOrder(_: FormState, fd: FormData): Promise<FormState
     } catch (e) {
       throw new InputError((e as Error).message);
     }
-    await db.update(orders).set({ adminNote: opt(fd, "adminNote"), updatedAt: new Date() }).where(eq(orders.id, id));
+    await db.update(orders).set({ adminNote: opt(fd, "adminNote"), customerUpdate: opt(fd, "customerUpdate"), updatedAt: new Date() }).where(eq(orders.id, id));
     // Cancelling or restoring changes stock on the site.
     expire("products");
   });

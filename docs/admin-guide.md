@@ -16,10 +16,13 @@ Everything you save is **live on the site straight away**. No redeploy, no waiti
 
 1. **Orders → New**. Open the order.
 2. Call or message the customer (phone, WhatsApp and Viber links are on the right). Confirm items, address and how they'll pay: customers don't choose a payment method at checkout. If they added a nearest landmark or pinned their location at checkout, it's under the address (**Open location in Google Maps**).
-3. Set the status as it moves: **Confirmed → Paid → Shipped → Delivered**. Use the private note for tracking numbers or payment references; customers never see it.
-4. If it falls through, set **Cancelled**: the items go back into stock automatically.
+3. Set the status as it moves: **Confirmed → Paid → Shipped → Delivered**. The customer's order page follows it straight away.
+4. To tell the customer something, write it in **Update for the customer** (e.g. "Sent with Pathao, arrives Friday" or a courier tracking number); it shows on their order page under the status. The **private note** is for you only: payment references, call notes.
+5. If it falls through, set **Cancelled**: the items go back into stock automatically.
 
 Prefer Cancelled over Delete so you keep a record.
+
+**Customers tracking their order.** Their confirmation page and email link to their order page. If they lose it, **Track order** (in the footer, at `/track`) finds it from the order number (e.g. F1N-1027) and the phone number they ordered with; both must match. Orders placed on the same phone or computer are also listed there.
 
 **Order emails.** When SMTP is set up (see [docs/deploy/env-vars.md](deploy/env-vars.md)), every new order is emailed to the store with the customer's details, the map pin and a button to open it here. Reply to the email to reach the customer, if they gave an email address. Customers who gave one also get an "order received" email with their items, total, delivery address and a link to their order page; their replies come to the store's inbox.
 

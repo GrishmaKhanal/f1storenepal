@@ -6,6 +6,7 @@ import { orderItems, orders, products, productVariants, type OrderStatus, type S
 import { getSettings } from "./data";
 import { zoneFor } from "./nepal";
 import { sendCustomerEmail, sendOrderEmail } from "./order-email";
+import { orderIdFrom, samePhone } from "./money";
 import { quote, type BagLine, type PricedVariant, type Quote } from "./pricing";
 
 /** Fresh price and stock rows for the variants in a bag. */
@@ -110,6 +111,17 @@ export async function placeOrder(bag: BagLine[], c: Customer, s: SiteSettings) {
     );
     return order;
   });
+}
+
+/**
+ * The token for an order's page, given its number ("F1N-1027") and the phone it was
+ * placed with. Null on any mismatch, without saying which part was wrong.
+ */
+export async function findOrderToken(ref: string, phone: string): Promise<string | null> {
+  const id = orderIdFrom(ref);
+  if (!id || !phone.trim()) return null;
+  const [o] = await db.select({ token: orders.token, phone: orders.phone }).from(orders).where(eq(orders.id, id)).limit(1);
+  return o && samePhone(o.phone, phone) ? o.token : null;
 }
 
 /**

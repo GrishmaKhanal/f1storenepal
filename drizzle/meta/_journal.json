@@ -50,6 +50,13 @@
       "when": 1791903449702,
       "tag": "0006_order_map_address",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791905900510,
+      "tag": "0007_order_customer_update",
+      "breakpoints": true
     }
   ]
 }

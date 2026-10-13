@@ -7,6 +7,7 @@ import { hasDb } from "@/db";
 import { getSettings, TAGS } from "@/lib/data";
 import { isEmail } from "@/lib/email";
 import { mapLink } from "@/lib/map-link";
+import { orderNo } from "@/lib/money";
 import { PROVINCES, provinceOf, zoneFor } from "@/lib/nepal";
 import { CheckoutError, loadVariants, notifyNewOrder, placeOrder } from "@/lib/orders";
 import { normalizeBag, quote, type BagLine, type Quote } from "@/lib/pricing";
@@ -52,7 +53,7 @@ const Customer = z.object({
 }).refine((c) => provinceOf(c.city) === c.province, { path: ["city"], message: "That district isn't in the province you chose." });
 
 export type CheckoutState =
-  | { ok: true; token: string }
+  | { ok: true; token: string; no: string }
   | { ok: false; error: string; problems?: Quote["problems"]; fields?: Record<string, string> }
   | undefined;
 
@@ -95,7 +96,7 @@ export async function submitOrder(_: CheckoutState, fd: FormData): Promise<Check
     updateTag(TAGS.products);
     // After the response: the customer never waits on, or sees, a slow or failing mail server.
     after(() => notifyNewOrder(order.id).catch((e) => console.error("Order email failed:", e)));
-    return { ok: true, token: order.token };
+    return { ok: true, token: order.token, no: orderNo(order.id) };
   } catch (e) {
     if (e instanceof CheckoutError) return { ok: false, error: e.message, problems: e.problems };
     console.error(e);

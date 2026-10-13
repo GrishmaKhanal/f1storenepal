@@ -142,6 +142,7 @@ export function customerEmail(o: Order, items: OrderItem[], store: Store) {
   const no = orderNo(o.id);
   const first = o.customerName.split(" ")[0];
   const page = `${SITE_URL}/order/${o.token}`;
+  const track = `${SITE_URL}/track?order=${no}`;
   const ig = store.instagramHandle ? `@${store.instagramHandle.replace(/^@+/, "")}` : null;
   const help = [store.phone && `call ${store.phone}`, ig && `DM ${ig} on Instagram`].filter(Boolean).join(" or ");
   const subject = oneLine(`Thanks for your order ${no} · ${store.storeName}`);
@@ -164,6 +165,7 @@ export function customerEmail(o: Order, items: OrderItem[], store: Store) {
     o.landmark && `Landmark: ${o.landmark}`,
     "",
     `View your order: ${page}`,
+    `Its status updates there as it moves. You can also find it at ${track} with ${no} and your phone number.`,
     "",
     questions,
   ]);
@@ -175,7 +177,8 @@ ${itemsHtml(o, items)}
 <p style="margin:20px 0 0;padding:14px 16px;background:#f7f6f4;border-radius:10px"><b>${esc(soon)}</b><br><span style="color:#4a4742">${esc(detail)}</span></p>
 ${heading("DELIVERING TO")}
 <p style="margin:0 0 20px">${esc(o.address).replace(/\n/g, "<br>")}<br>${esc(area(o))}${o.landmark ? `<br><span style="color:#6f6b65">Landmark: ${esc(o.landmark)}</span>` : ""}</p>
-${button(page, "View your order")}
+${button(page, "Track your order")}
+<p style="margin:0 0 16px;font-size:13px;color:#6f6b65">Its status updates there as it moves. Lost this email? Find it on ${link(track, "Track order")} with ${no} and your phone number.</p>
 <p style="margin:0 0 24px;color:#4a4742">${esc(questions)}</p>
 <p style="margin:0;font-size:12px;color:#8a857e">You're getting this because you placed an order at ${esc(store.storeName)}.</p>`);
 

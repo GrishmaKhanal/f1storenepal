@@ -45,7 +45,7 @@ export default async function OrderDetail({ params }: PageProps<"/admin/orders/[
               <div className="flex justify-between text-base font-semibold"><dt>Total</dt><dd className="tabular-nums">{rs(o.total)}</dd></div>
             </dl>
           </section>
-          <OrderForm id={o.id} status={o.status} adminNote={o.adminNote} />
+          <OrderForm id={o.id} status={o.status} adminNote={o.adminNote} customerUpdate={o.customerUpdate} />
         </div>
         <aside className={`${card} space-y-3 self-start p-5 text-sm`}>
           <h2 className="font-display text-xl font-bold uppercase">Customer</h2>

@@ -58,6 +58,14 @@ export default async function OrderPage({ params }: PageProps<"/order/[token]">)
             <Lights steps={STEPS} at={st.at} />
           </Rise>
         )}
+        {o.customerUpdate && (
+          <Rise className="mt-4 rounded-[14px] border border-rule bg-paper p-4">
+            <p className="font-mono text-[11px] tracking-[.12em] text-faint">
+              UPDATE · {o.updatedAt.toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "Asia/Kathmandu" })}
+            </p>
+            <p className="mt-1 text-[15px] whitespace-pre-line">{o.customerUpdate}</p>
+          </Rise>
+        )}
         <Rise>
           <ul className="mt-8 divide-y divide-rule border-y border-rule">
             {items.map((i) => (
@@ -75,7 +83,13 @@ export default async function OrderPage({ params }: PageProps<"/order/[token]">)
             <div className="flex justify-between"><dt>Delivery{o.deliveryZone && ` (${o.deliveryZone})`}</dt><dd className="tabular-nums">{o.deliveryFee ? rs(o.deliveryFee) : "Free"}</dd></div>
             <div className="mt-2 flex justify-between text-lg font-semibold"><dt>Total</dt><dd className="tabular-nums">{rs(o.total)}</dd></div>
           </dl>
-          <p className="mt-6 text-xs text-faint">Keep this page&apos;s link to check your order. Quote {orderNo(o.id)} if you message us.</p>
+          <p className="mt-6 text-xs text-faint">
+            This page shows your order&apos;s latest status. Find it again any time on{" "}
+            <Link href={`/track?order=${orderNo(o.id)}`} className="underline hover:text-red">
+              Track order
+            </Link>{" "}
+            with {orderNo(o.id)} and your phone number.
+          </p>
         </Rise>
       </Stagger>
       <div className="mt-6 flex flex-col gap-4">

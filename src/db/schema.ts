@@ -164,6 +164,8 @@ export const orders = pgTable(
     deliveryFee: integer("delivery_fee").notNull(),
     total: integer("total").notNull(),
     adminNote: text("admin_note"),
+    // Shown to the customer on their order page, e.g. "Sent with Pathao, arrives Friday".
+    customerUpdate: text("customer_update"),
     ...timestamps,
   },
   (t) => [index("orders_status_idx").on(t.status), index("orders_created_idx").on(t.createdAt)],

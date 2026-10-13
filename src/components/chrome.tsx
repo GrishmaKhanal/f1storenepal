@@ -56,7 +56,7 @@ export function Footer({ s }: { s: Settings }) {
         </div>
         <div className="flex flex-wrap gap-12">
           <FooterCol title="Shop" links={[["By Driver", "/drivers"], ["By Team", "/teams"], ["Accessories", "/accessories"], ["New In", "/new"]]} />
-          <FooterCol title="Help" links={[["Delivery", "/delivery"], ["Returns", "/returns"], ["Contact", "/contact"]]} />
+          <FooterCol title="Help" links={[["Track order", "/track"], ["Delivery", "/delivery"], ["Returns", "/returns"], ["Contact", "/contact"]]} />
           {s.instagramUrl && (
             <div className="flex flex-col gap-2">
               <span className="font-semibold text-paper">Follow</span>

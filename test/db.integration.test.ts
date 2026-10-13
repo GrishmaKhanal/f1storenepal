@@ -135,3 +135,17 @@ test("unknown district is rejected before touching stock", async (t) => {
   await assert.rejects(placeOrder([{ variantId: v.id, qty: 1 }], { ...customer, city: "Mars" }, defaultSettings), CheckoutError);
   assert.equal((await variantFor("keychain")).stock, 12);
 });
+
+test("tracking finds an order only from its number and phone together", async (t) => {
+  if (!reachable) return t.skip("no local Postgres");
+  const { placeOrder, findOrderToken } = await import("../src/lib/orders");
+  const { defaultSettings } = await import("../src/content/seed");
+  const { orderNo } = await import("../src/lib/money");
+  const v = await variantFor("Acrylic display case");
+  const order = await placeOrder([{ variantId: v.id, qty: 1 }], { ...customer, phone: "9811111111" }, defaultSettings);
+  assert.equal(await findOrderToken(orderNo(order.id), "+977 981-111-1111"), order.token);
+  assert.equal(await findOrderToken(`#${1000 + order.id}`, "9811111111"), order.token);
+  assert.equal(await findOrderToken(orderNo(order.id), "9800000000"), null);
+  assert.equal(await findOrderToken("F1N-999999", "9811111111"), null);
+  assert.equal(await findOrderToken(orderNo(order.id), ""), null);
+});
