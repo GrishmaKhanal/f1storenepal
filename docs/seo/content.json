@@ -1,0 +1,221 @@
+{
+  "_about": "Proposed catalogue copy for review (see content-draft.md). Applied by scripts/apply-seo-content.ts: tables -> row id -> column. Keys starting with '_' are notes; '_expect' is checked against the row before anything is written, and a row that doesn't match is skipped.",
+  "_drafted": "2026-10-15",
+  "products": {
+    "2": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #16 Charles Leclerc — Ferrari" },
+      "description": "Charles Leclerc's 2025 Ferrari SF-25, scaled down to 1:43 by Bburago. The diecast model wears Ferrari red with his #16 and is small enough to sit in the palm of your hand, so it fits easily on a desk, a bookshelf or beside the TV for race weekends.\n\nLeclerc joined Ferrari in 2019 and won his home Monaco Grand Prix with the team in 2024. Add Lewis Hamilton's SF-25 and you have both 2025 Ferrari cars side by side. We deliver anywhere in Nepal, and you can pay by cash on delivery, eSewa, Khalti or bank transfer.",
+      "seo_title": "Bburago F1 1:43 Charles Leclerc Ferrari SF-25 Price in Nepal",
+      "seo_description": "Bburago 1:43 diecast of Charles Leclerc's 2025 Ferrari SF-25 (#16). Rs 4,050, delivered across Nepal. Cash on delivery, eSewa, Khalti or bank transfer."
+    },
+    "3": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #44 Lewis Hamilton — Ferrari" },
+      "description": "The Ferrari SF-25 from Lewis Hamilton's first season in red, made by Bburago in 1:43 scale. The diecast carries his #44 in Ferrari's 2025 colours and is palm-sized: a neat piece for a desk or shelf, and an easy gift for any Hamilton or Ferrari fan.\n\nHamilton won seven Formula 1 world titles before moving from Mercedes to Ferrari in 2025. Pair this model with Charles Leclerc's SF-25 for Ferrari's full 2025 line-up. Delivery covers all of Nepal, from the Kathmandu Valley to Pokhara and Biratnagar, with cash on delivery, eSewa, Khalti or bank transfer.",
+      "seo_title": "Bburago F1 1:43 Lewis Hamilton Ferrari SF-25 Price in Nepal",
+      "seo_description": "Lewis Hamilton's 2025 Ferrari SF-25 (#44) as a Bburago 1:43 diecast. Rs 4,050, delivered across Nepal. Cash on delivery, eSewa, Khalti or bank transfer."
+    },
+    "4": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #1 Lando Norris — McLaren" },
+      "description": "Bburago's 1:43 diecast of the McLaren MCL39, the car Lando Norris drove in 2025, the season he won his first Formula 1 world title. The papaya and black livery is reproduced on a model that fits in your palm, ready for a desk or display shelf.\n\nNorris made his F1 debut with McLaren in 2019 and sealed the 2025 championship by two points at the final race in Abu Dhabi. A good pick for McLaren fans or anyone who followed that title fight. We ship across Nepal and accept cash on delivery, eSewa, Khalti or bank transfer.",
+      "seo_title": "Bburago F1 1:43 Lando Norris McLaren MCL39 Price in Nepal",
+      "seo_description": "Bburago 1:43 McLaren MCL39 from Lando Norris's 2025 title season. Rs 4,050, delivered across Nepal. Cash on delivery, eSewa, Khalti or bank transfer."
+    },
+    "6": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #3 Max Verstappen — Red Bull Racing" },
+      "description": "A 1:43 Bburago diecast of the Red Bull RB21 that Max Verstappen raced in the 2025 Formula 1 season. The dark blue Red Bull livery with its red and yellow details is reproduced on a model small enough to hold in one hand.\n\nVerstappen won four consecutive world championships with Red Bull from 2021 to 2024, and in the RB21 he finished just two points short of a fifth. Order online for delivery anywhere in Nepal and pay by cash on delivery, eSewa, Khalti or bank transfer. We call or message to confirm every order before it ships.",
+      "seo_title": "Bburago F1 1:43 Max Verstappen Red Bull RB21 Price in Nepal",
+      "seo_description": "Max Verstappen's 2025 Red Bull RB21 as a Bburago 1:43 diecast car. Rs 4,050, delivered anywhere in Nepal. Cash on delivery, eSewa, Khalti or bank transfer."
+    },
+    "9": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #12 Kimi Antonelli — Mercedes" },
+      "description": "Bburago's 1:43 diecast of the Mercedes W16 from Kimi Antonelli's rookie Formula 1 season in 2025. The model carries his #12 on Mercedes' black livery with teal details, and it is small enough to sit in your palm.\n\nAntonelli, from Italy, made his race debut for Mercedes at the 2025 Australian Grand Prix aged 18, in the seat Lewis Hamilton left for Ferrari. A fitting start to a collection of F1's newest generation. Cash on delivery, eSewa, Khalti and bank transfer are all accepted, with delivery across Nepal.",
+      "seo_title": "Bburago F1 1:43 Kimi Antonelli Mercedes W16 Price in Nepal",
+      "seo_description": "Bburago 1:43 diecast of Kimi Antonelli's 2025 Mercedes W16 (#12), his rookie F1 car. Rs 4,050, delivered across Nepal. Cash on delivery, eSewa or Khalti."
+    },
+    "10": {
+      "_expect": { "name": "Bburago F1 Car 1:43 #14 Fernando Alonso — Aston Martin" },
+      "description": "The Aston Martin AMR25 that Fernando Alonso raced in 2025, made by Bburago in 1:43 scale. It wears Aston Martin's racing green with lime details and his #14, on a model that fits in the palm of your hand.\n\nAlonso won back-to-back world titles with Renault in 2005 and 2006 and joined Aston Martin in 2023, so this car is one chapter of a very long F1 career. We deliver to every part of Nepal, and you can pay by cash on delivery, eSewa, Khalti or bank transfer.",
+      "seo_title": "Bburago F1 1:43 Alonso Aston Martin AMR25 Price in Nepal",
+      "seo_description": "Fernando Alonso's 2025 Aston Martin AMR25 (#14) as a Bburago 1:43 diecast model. Rs 4,050, delivered across Nepal. Cash on delivery, eSewa or Khalti."
+    },
+    "28": {
+      "_expect": { "name": "F1: The Movie Wall Poster" },
+      "description": "F1: The Movie wall poster by Draftt, printed on paper with a matte finish. Medium size, 19 x 13 inches, supplied rolled.\n\nThe artwork shows the APXGP number 7 car from above and its driver walking with his helmet, from the 2025 film starring Brad Pitt.",
+      "seo_title": "F1 The Movie Wall Poster in Nepal, 19 x 13 inch",
+      "seo_description": "F1: The Movie wall poster by Draftt: matte paper print, 19 x 13 inches, from the 2025 Brad Pitt film. Delivered across Nepal; DM us on Instagram to order."
+    },
+    "33": {
+      "_expect": { "name": "Max Verstappen Red Bull F1 Poster" },
+      "description": "Small paper poster featuring Max Verstappen and Red Bull Formula One artwork.\n\nThe illustrated design shows Verstappen, his helmet and a Red Bull car carrying number 33, the number he raced with from his 2015 debut until his first world title in 2021.",
+      "seo_title": "Max Verstappen Red Bull F1 Poster in Nepal",
+      "seo_description": "Small Max Verstappen Red Bull F1 paper poster with illustrated #33 artwork. Delivered across Nepal; message us on Instagram for the price and to order."
+    },
+    "38": {
+      "_expect": { "name": "Lewis Hamilton F1 Poster Set — 3 Pieces" },
+      "description": "A pack of three Lewis Hamilton wall posters by LiveMad Live Crazy, each A4 size (8.3 x 11.7 inches), for a bedroom, living room or office wall.\n\nThe three designs, as pictured: a teal Mercedes poster with Hamilton's 44, a portrait of Hamilton with his Mercedes car, and a white 44 print with the car.",
+      "seo_title": "Lewis Hamilton F1 Poster Set of 3 (A4) in Nepal",
+      "seo_description": "Set of three A4 Lewis Hamilton wall posters with Mercedes #44 designs, by LiveMad Live Crazy. Delivered across Nepal; DM us on Instagram to order."
+    }
+  },
+  "teams": {
+    "1": {
+      "_expect": { "slug": "ferrari" },
+      "description": "Ferrari F1 merch in Nepal, starting with Bburago 1:43 diecast models of the 2025 Ferrari SF-25 as driven by Charles Leclerc (#16) and Lewis Hamilton (#44). We deliver anywhere in Nepal, with cash on delivery, eSewa, Khalti or bank transfer. Scuderia Ferrari is the only team to have raced in every Formula 1 World Championship season since the championship began in 1950.",
+      "seo_title": "Ferrari F1 Diecast Cars in Nepal: Leclerc & Hamilton",
+      "seo_description": "Ferrari F1 merch in Nepal: Bburago 1:43 SF-25 diecast cars of Charles Leclerc and Lewis Hamilton. Delivered nationwide; cash on delivery, eSewa, Khalti."
+    },
+    "2": {
+      "_expect": { "slug": "mclaren" },
+      "description": "McLaren F1 merch in Nepal, including a Bburago 1:43 diecast of the MCL39 that Lando Norris drove to the 2025 world title. Delivery covers all of Nepal, and you can pay by cash on delivery, eSewa, Khalti or bank transfer. Founded by New Zealand racer Bruce McLaren in 1963, the team made its Formula 1 debut at the 1966 Monaco Grand Prix.",
+      "seo_title": "McLaren F1 Diecast Cars in Nepal: Lando Norris MCL39",
+      "seo_description": "McLaren F1 merch in Nepal: Bburago 1:43 MCL39 diecast from Lando Norris's 2025 title season. Delivered nationwide; cash on delivery, eSewa or Khalti."
+    },
+    "3": {
+      "_expect": { "slug": "red-bull-racing" },
+      "description": "Red Bull Racing merch in Nepal: a Bburago 1:43 diecast of Max Verstappen's 2025 RB21 and an illustrated Max Verstappen wall poster. We deliver across Nepal; pay by cash on delivery, eSewa, Khalti or bank transfer. Based in Milton Keynes, England, Red Bull Racing made its Formula 1 debut in 2005.",
+      "seo_title": "Red Bull Racing F1 Diecast Car & Poster in Nepal",
+      "seo_description": "Red Bull Racing merch in Nepal: Bburago 1:43 RB21 diecast of Max Verstappen's car and a Verstappen wall poster. Delivered nationwide; cash on delivery."
+    },
+    "4": {
+      "_expect": { "slug": "mercedes" },
+      "description": "Mercedes F1 merch in Nepal: a Bburago 1:43 diecast of Kimi Antonelli's 2025 Mercedes W16 and a set of three A4 Lewis Hamilton posters with Mercedes #44 designs. Orders are delivered anywhere in Nepal, paid by cash on delivery, eSewa, Khalti or bank transfer. Mercedes won a record eight consecutive Constructors' Championships, from 2014 to 2021.",
+      "seo_title": "Mercedes F1 Diecast Car & Posters in Nepal",
+      "seo_description": "Mercedes F1 merch in Nepal: Bburago 1:43 W16 diecast of Kimi Antonelli's car and a Lewis Hamilton A4 poster set. Delivered nationwide; cash on delivery."
+    },
+    "5": {
+      "_expect": { "slug": "aston-martin" },
+      "description": "Aston Martin F1 merch in Nepal, led by a Bburago 1:43 diecast of the AMR25 that Fernando Alonso raced in 2025. We deliver to every part of Nepal and accept cash on delivery, eSewa, Khalti and bank transfer. The Aston Martin name returned to Formula 1 in 2021, with the team based at Silverstone in England.",
+      "seo_title": "Aston Martin F1 Diecast Car in Nepal: Alonso AMR25",
+      "seo_description": "Aston Martin F1 merch in Nepal: Bburago 1:43 diecast of Fernando Alonso's 2025 AMR25. Delivered nationwide; cash on delivery, eSewa or Khalti."
+    }
+  },
+  "drivers": {
+    "1": {
+      "_expect": { "slug": "max-verstappen" },
+      "description": "Max Verstappen merch in Nepal: a Bburago 1:43 diecast of his 2025 Red Bull RB21 and an illustrated Red Bull wall poster. We deliver anywhere in Nepal, with cash on delivery, eSewa, Khalti or bank transfer. The Dutch driver won four consecutive Formula 1 world championships with Red Bull, from 2021 to 2024.",
+      "seo_title": "Max Verstappen Diecast Car & Poster in Nepal",
+      "seo_description": "Max Verstappen merch in Nepal: Bburago 1:43 Red Bull RB21 diecast and an illustrated wall poster. Delivered nationwide; cash on delivery, eSewa or Khalti."
+    },
+    "3": {
+      "_expect": { "slug": "charles-leclerc" },
+      "description": "Charles Leclerc merch in Nepal, starting with a Bburago 1:43 diecast of his 2025 Ferrari SF-25 in #16. Delivery covers all of Nepal, and we accept cash on delivery, eSewa, Khalti and bank transfer. Leclerc, from Monaco, joined Ferrari in 2019 and won his home Monaco Grand Prix in 2024.",
+      "seo_title": "Charles Leclerc Ferrari Diecast Car in Nepal",
+      "seo_description": "Charles Leclerc merch in Nepal: Bburago 1:43 diecast of his 2025 Ferrari SF-25 (#16). Delivered nationwide; cash on delivery, eSewa or Khalti."
+    },
+    "4": {
+      "_expect": { "slug": "lewis-hamilton" },
+      "description": "Lewis Hamilton merch in Nepal: a Bburago 1:43 diecast of his 2025 Ferrari SF-25 and a set of three A4 wall posters from his Mercedes years. We deliver across Nepal; pay by cash on delivery, eSewa, Khalti or bank transfer. The British driver won seven Formula 1 world titles before moving from Mercedes to Ferrari in 2025.",
+      "seo_title": "Lewis Hamilton Diecast Car & Posters in Nepal",
+      "seo_description": "Lewis Hamilton merch in Nepal: Bburago 1:43 Ferrari SF-25 diecast and an A4 poster set of three. Delivered nationwide; cash on delivery, eSewa or Khalti."
+    },
+    "5": {
+      "_expect": { "slug": "lando-norris" },
+      "description": "Lando Norris merch in Nepal, including a Bburago 1:43 diecast of the McLaren MCL39 he drove in 2025. We deliver to every part of Nepal and accept cash on delivery, eSewa, Khalti and bank transfer. The British driver made his Formula 1 debut with McLaren in 2019 and won the 2025 world championship by two points at the season finale in Abu Dhabi.",
+      "seo_title": "Lando Norris McLaren Diecast Car in Nepal",
+      "seo_description": "Lando Norris merch in Nepal: Bburago 1:43 McLaren MCL39 diecast from his 2025 championship season. Delivered nationwide; cash on delivery, eSewa, Khalti."
+    },
+    "8": {
+      "_expect": { "slug": "kimi-antonelli" },
+      "description": "Kimi Antonelli merch in Nepal: a Bburago 1:43 diecast of the Mercedes W16 from his 2025 rookie season, carrying his #12. Delivery covers all of Nepal, with cash on delivery, eSewa, Khalti or bank transfer. The Italian driver made his Formula 1 race debut for Mercedes at the 2025 Australian Grand Prix, aged 18.",
+      "seo_title": "Kimi Antonelli Mercedes Diecast Car in Nepal",
+      "seo_description": "Kimi Antonelli merch in Nepal: Bburago 1:43 diecast of his rookie-season 2025 Mercedes W16 (#12). Delivered nationwide; cash on delivery, eSewa, Khalti."
+    },
+    "9": {
+      "_expect": { "slug": "fernando-alonso" },
+      "description": "Fernando Alonso merch in Nepal: a Bburago 1:43 diecast of his 2025 Aston Martin AMR25, number 14. We deliver anywhere in Nepal, and you can pay by cash on delivery, eSewa, Khalti or bank transfer. The Spanish driver won back-to-back Formula 1 world titles with Renault in 2005 and 2006 and joined Aston Martin in 2023.",
+      "seo_title": "Fernando Alonso Aston Martin Diecast in Nepal",
+      "seo_description": "Fernando Alonso merch in Nepal: Bburago 1:43 diecast of his 2025 Aston Martin AMR25 (#14). Delivered nationwide; cash on delivery, eSewa, Khalti or bank."
+    }
+  },
+  "categories": {
+    "1": {
+      "_expect": { "slug": "model-cars" },
+      "description": "F1 diecast cars in Nepal: Bburago 1:43 scale models of 2025 Formula 1 cars, including the Ferrari SF-25, McLaren MCL39, Red Bull RB21, Mercedes W16 and Aston Martin AMR25. Each F1 diecast car is Rs 4,050 and small enough to sit in your palm, sized for a desk or shelf. We deliver anywhere in Nepal, from the Kathmandu Valley to Pokhara and Biratnagar, and you can pay by cash on delivery, eSewa, Khalti or bank transfer.",
+      "seo_title": "F1 Diecast Cars in Nepal: Bburago 1:43 Models",
+      "seo_description": "Bburago 1:43 F1 diecast cars in Nepal for Rs 4,050: Ferrari, McLaren, Red Bull, Mercedes and Aston Martin. Delivered nationwide; cash on delivery, eSewa."
+    },
+    "11": {
+      "_expect": { "slug": "wall-posters" },
+      "description": "F1 wall posters in Nepal for a bedroom, office or fan corner: an F1: The Movie print, an illustrated Max Verstappen Red Bull poster and a set of three A4 Lewis Hamilton posters. Sizes and finishes differ by poster, so check each listing. We deliver across Nepal; message us on Instagram for prices and to order.",
+      "seo_title": "F1 Wall Posters in Nepal: Verstappen, Hamilton & More",
+      "seo_description": "F1 wall posters in Nepal: F1: The Movie, Max Verstappen and a Lewis Hamilton A4 set of three. Delivered nationwide; message us on Instagram to order."
+    }
+  },
+  "media": {
+    "5": {
+      "_expect": { "name": "CL" },
+      "_product": 2,
+      "alt": "Bburago 1:43 Charles Leclerc Ferrari SF-25 diecast model on its black display base, with its Bburago Formula Racing box behind"
+    },
+    "4": {
+      "_expect": { "name": "CL2" },
+      "_product": 2,
+      "alt": "Bburago 1:43 Charles Leclerc Ferrari SF-25 diecast model held in the palm of a hand, showing its size"
+    },
+    "6": {
+      "_expect": { "name": "CL3" },
+      "_product": 2,
+      "alt": "Bburago 1:43 Charles Leclerc #16 Ferrari SF-25 diecast on a desk beside its red Bburago box"
+    },
+    "13": {
+      "_expect": { "name": "LH2" },
+      "_product": 3,
+      "alt": "Bburago 1:43 Lewis Hamilton #44 Ferrari SF-25 diecast model held in the palm of a hand"
+    },
+    "14": {
+      "_expect": { "name": "LH3" },
+      "_product": 3,
+      "alt": "Bburago 1:43 Lewis Hamilton Ferrari SF-25 diecast on its named display base with a clear cover"
+    },
+    "28": {
+      "_expect": { "name": "LN1" },
+      "_product": 4,
+      "alt": "Bburago 1:43 Lando Norris McLaren MCL39 diecast on its display base, with its Bburago box behind"
+    },
+    "29": {
+      "_expect": { "name": "LN2" },
+      "_product": 4,
+      "alt": "Bburago 1:43 Lando Norris McLaren MCL39 diecast model held in the palm of a hand"
+    },
+    "25": {
+      "_expect": { "name": "MV2" },
+      "_product": 6,
+      "alt": "Bburago 1:43 Max Verstappen Red Bull RB21 diecast held in a hand, with its Bburago box behind"
+    },
+    "91": {
+      "_expect": { "name": "KA2" },
+      "_product": 9,
+      "alt": "Bburago 1:43 Kimi Antonelli #12 Mercedes W16 diecast held in the palm of a hand"
+    },
+    "92": {
+      "_expect": { "name": "KA1" },
+      "_product": 9,
+      "alt": "Bburago 1:43 Kimi Antonelli Mercedes W16 diecast in front of its Bburago F1 W16 box"
+    },
+    "105": {
+      "_expect": { "name": "FA3" },
+      "_product": 10,
+      "alt": "Bburago 1:43 Fernando Alonso Aston Martin AMR25 diecast on its display base, with its box and a clear cover behind"
+    },
+    "106": {
+      "_expect": { "name": "01" },
+      "_product": 28,
+      "alt": "F1: The Movie wall poster showing the APXGP number 7 car from above and a driver in a white race suit carrying his helmet"
+    },
+    "109": {
+      "_expect": { "name": "01" },
+      "_product": 33,
+      "alt": "Max Verstappen Red Bull F1 poster: illustrated Verstappen, his helmet and a Red Bull car with number 33, shown on a wall"
+    },
+    "107": {
+      "_expect": { "name": "01" },
+      "_product": 38,
+      "alt": "Lewis Hamilton F1 poster set of three: a teal Mercedes 44 design, a Hamilton portrait with his car and a white 44 print"
+    },
+    "108": {
+      "_expect": { "name": "02" },
+      "_product": 38,
+      "alt": "Lewis Hamilton F1 poster set of three, smaller preview of the same three designs"
+    }
+  }
+}
