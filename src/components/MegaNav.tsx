@@ -140,7 +140,7 @@ export function MegaNav({ data }: { data: NavData }) {
         <div className="mx-auto grid max-w-[1320px] grid-cols-[200px_1fr] gap-10 px-6 pt-7 pb-8">
           {menu === "d" && (
             <>
-              <MenuIntro title={["SHOP BY", "DRIVER"]} body="Every car, cap and keyring for the grid." href="/drivers" link="All drivers" />
+              <MenuIntro title={["SHOP BY", "DRIVER"]} body="Every car and poster for the grid." href="/drivers" link="All drivers" />
               <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-x-5 gap-y-1">
                 {data.drivers.map((d) => (
                   <Link key={d.slug} href={`/drivers/${d.slug}`} className="flex items-baseline gap-2.5 border-b border-[#f0eee9] py-2 text-sm hover:text-red">

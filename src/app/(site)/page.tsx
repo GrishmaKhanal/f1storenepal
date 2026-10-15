@@ -25,6 +25,20 @@ export default async function Home() {
       <StoreJsonLd s={s} />
       <Hero s={s} product={heroProduct} />
 
+      {newest.length > 0 && (
+        <section className={`${wrap} pt-8 sm:pt-12`}>
+          <SectionHead title="NEW IN" href="/new" link="See everything new" />
+          <NewInTabs
+            tabs={tabs}
+            items={newest.map((p, i) => ({
+              id: p.id,
+              cats: p.category ? [p.category.slug] : [],
+              node: <ProductCard p={p} priority={i < 2} />,
+            }))}
+          />
+        </section>
+      )}
+
       {c.teams.length > 0 && (
         <section className={`${wrap} pt-[72px]`}>
           <SectionHead title="SHOP BY TEAM" href="/teams" link="All teams" />
@@ -69,20 +83,6 @@ export default async function Home() {
         </section>
       )}
 
-      {newest.length > 0 && (
-        <section className={`${wrap} pt-[72px]`}>
-          <SectionHead title="NEW IN" href="/new" link="See everything new" />
-          <NewInTabs
-            tabs={tabs}
-            items={newest.map((p, i) => ({
-              id: p.id,
-              cats: p.category ? [p.category.slug] : [],
-              node: <ProductCard p={p} priority={i < 2} />,
-            }))}
-          />
-        </section>
-      )}
-
       <section className={`${wrap} pt-[72px]`}>
         <SectionHead title="ACCESSORIES" href={accessories.length > 0 ? "/accessories" : undefined} link={accessories.length > 0 ? "All accessories" : undefined} />
         {accessories.length > 0 ? (
@@ -107,7 +107,7 @@ export default async function Home() {
             <div>
               <h2 className="display text-[clamp(34px,4vw,44px)]">F1 MERCH, DELIVERED ACROSS NEPAL</h2>
               <p className="mt-4 max-w-[520px] text-[15.5px] leading-relaxed text-muted">
-                Looking for an F1 store near you? {s.storeName} delivers Formula 1 diecast cars, team caps, keychains and gifts to your door, wherever you are in Nepal.
+                Looking for an F1 store near you? {s.storeName} delivers Formula 1 diecast cars, wall posters and gifts to your door, wherever you are in Nepal.
               </p>
             </div>
             <ul aria-label="Towns we deliver to" className="flex flex-wrap gap-2">
@@ -159,69 +159,59 @@ function Hero({ s, product }: { s: Settings; product: Awaited<ReturnType<typeof 
   const v = product?.variants.length === 1 ? product.variants[0] : null;
   const canAdd = product && v?.available && v.price != null;
   const dark = s.heroStyle !== "light";
+  const flush = dark && img; // dark style: the image sits on the hero's bottom edge
   const title = s.heroTitle.split("\n").map((line, i, a) => (
     <span key={i}>
       {line.split(/(\*[^*]+\*)/).map((part, j) => (part.startsWith("*") && part.endsWith("*") ? <span key={j} className="text-red">{part.slice(1, -1)}</span> : part))}
-      {i < a.length - 1 && <br />}
+      {i < a.length - 1 && <> <br /></>}
     </span>
   ));
 
+  const btn = "rounded-full px-[22px] py-3 text-[14.5px] font-semibold whitespace-nowrap";
   const primary = canAdd ? (
     <HeroAdd
       item={{ variantId: v!.id, slug: product!.slug, name: product!.name, variantLabel: v!.label, price: v!.price!, image: img?.src ?? null }}
-      className={`cursor-pointer rounded-full px-[26px] py-4 text-[15px] font-semibold whitespace-nowrap text-white transition-colors ${dark ? "bg-red hover:bg-red-hot" : "bg-ink hover:bg-red"}`}
+      className={`${btn} cursor-pointer text-white transition-colors ${dark ? "bg-red hover:bg-red-hot" : "bg-ink hover:bg-red"}`}
     >
       Add to bag · {rs(v!.price!)}
     </HeroAdd>
   ) : product ? (
-    <Link href={paths.product(product.slug)} className="rounded-full bg-red px-[26px] py-4 text-[15px] font-semibold whitespace-nowrap text-white hover:bg-red-hot hover:text-white">
+    <Link href={paths.product(product.slug)} className={`${btn} bg-red text-white hover:bg-red-hot hover:text-white`}>
       View product
     </Link>
   ) : null;
   const secondary = s.heroSecondaryLabel && s.heroSecondaryHref && (
-    <Link href={s.heroSecondaryHref} className={`rounded-full border px-[26px] py-4 text-[15px] font-semibold whitespace-nowrap transition-colors ${dark ? "border-[#3a3a3a] text-paper hover:border-paper hover:text-paper" : "border-[#d9d6d0] hover:border-ink"}`}>
+    <Link href={s.heroSecondaryHref} className={`${btn} border transition-colors ${dark ? "border-[#3a3a3a] text-paper hover:border-paper hover:text-paper" : "border-[#d9d6d0] hover:border-ink"}`}>
       {s.heroSecondaryLabel}
     </Link>
   );
-
-  if (!dark) {
-    return (
-      <section className="border-b border-rule bg-white">
-        <div className={`${wrap} grid items-center gap-10 py-14 md:grid-cols-2`}>
-          <div className="rise">
-            {s.heroEyebrow && <div className="font-mono text-xs tracking-[.12em] text-red uppercase">{s.heroEyebrow}</div>}
-            <h1 className="display mt-4 text-[clamp(52px,7vw,100px)] leading-[.9] text-balance uppercase">{title}</h1>
-            {s.heroBody && <p className="mt-6 mb-8 max-w-[440px] text-[17px] leading-relaxed text-muted">{s.heroBody}</p>}
-            <div className="flex flex-wrap gap-3">{primary}{secondary}</div>
-          </div>
-          {img && (
-            <div className="flex aspect-[1.3] items-center justify-center overflow-hidden rounded-[20px] bg-paper">
-              <Img img={img} priority sizes="(min-width: 768px) 50vw, 100vw" className="w-[115%] max-w-none mix-blend-multiply" />
-            </div>
-          )}
-        </div>
-      </section>
-    );
-  }
+  const cta = (s.heroBody || primary || secondary) && (
+    <div className={`flex flex-wrap items-center gap-x-8 gap-y-3 ${img ? "mt-4" : ""}`}>
+      {s.heroBody && <p className={`max-w-[460px] text-[14.5px] leading-snug sm:text-[15.5px] ${dark ? "text-dim" : "text-muted"}`}>{s.heroBody}</p>}
+      {(primary || secondary) && <div className="flex flex-wrap gap-2.5">{primary}{secondary}</div>}
+    </div>
+  );
 
   return (
-    <section className="overflow-hidden bg-night text-paper">
-      <div className={`${wrap} grid items-end gap-6 pt-12 sm:pt-16 md:grid-cols-2`}>
-        <div className="rise pb-10 md:pb-[72px]">
-          {s.heroEyebrow && <div className="font-mono text-xs tracking-[.12em] text-red uppercase">{s.heroEyebrow}</div>}
-          <h1 className="display mt-[18px] text-[clamp(60px,8vw,116px)] leading-[.88] tracking-[-.01em] text-balance uppercase italic">{title}</h1>
-          {s.heroBody && <p className="mt-[22px] mb-8 max-w-[420px] text-[17px] leading-relaxed text-dim">{s.heroBody}</p>}
-          <div className="flex flex-wrap gap-3">{primary}{secondary}</div>
+    <section className={dark ? "overflow-hidden bg-night text-paper" : "overflow-hidden border-b border-rule bg-white"}>
+      <div
+        className={`${wrap} grid gap-x-12 gap-y-4 ${flush ? "pt-5 sm:pt-8" : "py-5 sm:py-8"} ${img ? `md:grid-cols-[minmax(0,1fr)_auto] ${dark ? "items-end" : "md:items-center"}` : "lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-end"}`}
+      >
+        <div className={`rise min-w-0 ${flush ? "md:pb-8" : ""}`}>
+          {s.heroEyebrow && <div className="font-mono text-[11px] tracking-[.12em] text-red uppercase sm:text-xs">{s.heroEyebrow}</div>}
+          <h1 className={`display mt-2 text-[clamp(32px,4.4vw,56px)] leading-[.9] text-balance uppercase ${dark ? "tracking-[-.01em] italic" : ""}`}>{title}</h1>
+          {img && cta}
         </div>
+        {!img && cta}
         {img && (
-          <div className="relative flex min-h-[300px] items-end justify-center self-stretch sm:min-h-[420px]">
-            {s.heroWatermark && (
-              <div aria-hidden className="display absolute -right-10 -bottom-10 text-[clamp(240px,30vw,420px)] text-[#1a1a1a] italic select-none">
+          <div className="relative justify-self-center md:justify-self-end">
+            {flush && s.heroWatermark && (
+              <div aria-hidden className="display absolute -right-8 -bottom-6 text-[clamp(150px,16vw,240px)] text-[#1a1a1a] italic select-none">
                 {s.heroWatermark}
               </div>
             )}
-            <div className="relative flex aspect-[1.5] w-full max-w-[620px] items-center justify-center overflow-hidden rounded-t-[18px] bg-paper">
-              <Img img={img} priority sizes="(min-width: 768px) 620px, 100vw" className="w-[138%] max-w-none mix-blend-multiply" />
+            <div className={`relative flex aspect-[1.5] w-[240px] items-center justify-center overflow-hidden bg-paper sm:w-[280px] lg:w-[320px] ${dark ? "rounded-t-[14px]" : "rounded-[14px]"}`}>
+              <Img img={img} priority sizes="(min-width: 1024px) 320px, (min-width: 640px) 280px, 240px" className={`max-w-none mix-blend-multiply ${dark ? "w-[138%]" : "w-[115%]"}`} />
             </div>
           </div>
         )}
@@ -240,6 +230,7 @@ function StoreJsonLd({ s }: { s: Settings }) {
           "@type": "Store",
           "@id": `${SITE_URL}/#store`,
           name: s.storeName,
+          alternateName: "F1 Store Nepal",
           url: SITE_URL,
           logo: abs("/icons/icon-512.png"),
           image: abs("/opengraph-image.png"),
@@ -259,6 +250,8 @@ function StoreJsonLd({ s }: { s: Settings }) {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: s.storeName,
+          // Google's site-name fallbacks, most preferred first.
+          alternateName: ["F1 Store Nepal", new URL(SITE_URL).host],
           url: SITE_URL,
           potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/search?q={search_term_string}`, "query-input": "required name=search_term_string" },
         },

@@ -1,6 +1,16 @@
 import type { MetadataRoute } from "next";
+import { abs, paths } from "./site";
 
 export type SitemapEntry = Pick<MetadataRoute.Sitemap[number], "url" | "lastModified" | "changeFrequency" | "priority" | "images">;
+
+// Google reads up to 1,000 images per page, so every product photo is listed.
+export const productEntry = (p: { slug: string; updatedAt: Date; images: readonly { large: string }[] }): SitemapEntry => ({
+  url: abs(paths.product(p.slug)),
+  lastModified: p.updatedAt,
+  changeFrequency: "weekly",
+  priority: 0.9,
+  images: [...new Set(p.images.map((i) => abs(i.large)))].slice(0, 1000),
+});
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 

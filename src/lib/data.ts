@@ -6,7 +6,8 @@ import { categories, drivers, media, products, productImages, productVariants, s
 import { defaultSettings, seedCategories, seedDrivers, seedProducts, seedTeams } from "@/content/seed";
 import { mediaSrcSet, mediaUrl } from "./media-url";
 import { slugify } from "./slug";
-import { hasAvailableStock } from "./product-stock";
+import { availableFirst, hasAvailableStock } from "./product-stock";
+import { withImageAlts } from "./seo";
 
 // Cache tags. Admin writes expire these so public pages update without a redeploy.
 export const TAGS = { settings: "settings", catalog: "catalog", products: "products" } as const;
@@ -228,15 +229,18 @@ const cachedSettings = cached(_getSettings, "settings", [TAGS.settings]);
 // The cache never expires on its own, so it can hold a value written by older code.
 // Fill any field added since from the defaults here too, not only inside _getSettings.
 export const getSettings = async (): Promise<Settings> => ({ ...defaultSettings, ...(await cachedSettings()) });
-export const getProducts = cached(_getProducts, "products-v2", [TAGS.products]);
+const cachedProducts = cached(_getProducts, "products-v2", [TAGS.products]);
+// Sorted and given readable image alts after the cache, not inside it, so a cached list
+// from older code still comes out this way.
+export const getProducts = async () => availableFirst((await cachedProducts()).map(withImageAlts));
 export const getCatalog = cached(_getCatalog, "catalog-v2", [TAGS.catalog, TAGS.products]);
 
 export async function getProduct(slug: string) {
   return (await getProducts()).find((p) => p.slug === slug) ?? null;
 }
 
-/** "New in": newest first by publish date. */
+/** "New in": newest first by publish date, with buyable products ahead of the rest. */
 export async function getNewest(limit?: number) {
-  const ps = [...(await getProducts())].sort((a, b) => (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0));
+  const ps = availableFirst([...(await getProducts())].sort((a, b) => (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0)));
   return limit ? ps.slice(0, limit) : ps;
 }

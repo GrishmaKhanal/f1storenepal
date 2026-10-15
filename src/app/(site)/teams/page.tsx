@@ -7,7 +7,7 @@ import { paths } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Shop by F1 team",
-  description: "Diecast cars, caps and gifts for every Formula 1 team: Ferrari, McLaren, Red Bull, Mercedes and more. Delivered across Nepal.",
+  description: "Diecast cars, wall posters and gifts for every Formula 1 team: Ferrari, McLaren, Red Bull, Mercedes and more. Delivered across Nepal.",
   alternates: { canonical: "/teams" },
 };
 

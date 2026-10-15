@@ -9,6 +9,7 @@ export function Collection({
   crumbs,
   title,
   intro,
+  meta,
   accent,
   products,
   url,
@@ -17,6 +18,8 @@ export function Collection({
   crumbs: [string, string][];
   title: string;
   intro?: string | null;
+  /** Short facts shown beside the product count, e.g. "#44 · Ferrari". */
+  meta?: string | null;
   accent?: string | null;
   products: ProductView[];
   url: string;
@@ -40,6 +43,7 @@ export function Collection({
       />
       <PageHead crumbs={crumbs} title={title} intro={intro} accent={accent}>
         <span className="font-mono text-xs text-faint">
+          {meta && `${meta} · `}
           {products.length} product{products.length === 1 ? "" : "s"}
         </span>
       </PageHead>

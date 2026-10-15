@@ -7,7 +7,7 @@ import { paths } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Shop by F1 driver",
-  description: "Diecast cars, caps and gifts for every driver on the Formula 1 grid: Hamilton, Verstappen, Norris, Leclerc and more. Delivered across Nepal.",
+  description: "Diecast cars, wall posters and gifts for every driver on the Formula 1 grid: Hamilton, Verstappen, Norris, Leclerc and more. Delivered across Nepal.",
   alternates: { canonical: "/drivers" },
 };
 
@@ -15,7 +15,7 @@ export default async function Drivers() {
   const { drivers } = await getCatalog();
   return (
     <>
-      <PageHead crumbs={[["Drivers", "/drivers"]]} title="Shop by driver" intro="Every car, cap and keyring for the grid." />
+      <PageHead crumbs={[["Drivers", "/drivers"]]} title="Shop by driver" intro="Every car and poster for the grid." />
       <section className={`${wrap} grid grid-cols-2 gap-3 pb-[72px] sm:grid-cols-3 lg:grid-cols-4`}>
         {drivers.map((d) => (
           <Link key={d.slug} href={paths.driver(d.slug)} className="group flex flex-col overflow-hidden rounded-[14px] border border-rule bg-white transition-all duration-200 ease-out-soft hover:-translate-y-[3px] hover:border-ink hover:text-ink">

@@ -8,6 +8,7 @@ import { ProductGrid } from "@/components/ProductCard";
 import { getProduct, getProducts, getSettings } from "@/lib/data";
 import { instagramDmLink } from "@/lib/instagram";
 import { deliveryFeeFor } from "@/lib/pricing";
+import { productDescription } from "@/lib/seo";
 import { abs, paths, SITE_URL } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -15,12 +16,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
-  const p = await getProduct((await params).slug);
+  const [p, s] = await Promise.all([getProduct((await params).slug), getSettings()]);
   if (!p) return {};
   const price = p.variants.find((v) => v.price != null)?.price ?? p.price;
   const desc =
     p.seoDescription ||
-    [p.description, price != null ? `Rs ${price.toLocaleString("en-IN")}.` : null, "Delivered across Nepal."].filter(Boolean).join(" ").slice(0, 300);
+    (p.description
+      ? [p.description, price != null ? `Rs ${price.toLocaleString("en-IN")}.` : null, "Delivered across Nepal."].filter(Boolean).join(" ").slice(0, 300)
+      : productDescription(p, s.paymentMethods.map((m) => m.label)));
   const img = p.images[0];
   return {
     title: p.seoTitle || p.name,
@@ -86,21 +89,25 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: p.name,
-          description: p.description ?? undefined,
-          url: abs(paths.product(p.slug)),
-          image: p.images.map((i) => abs(i.large)),
-          brand: p.brand ? { "@type": "Brand", name: p.brand } : undefined,
-          category: p.category?.name,
-          offers: priced.length > 1 && new Set(priced.map((v) => v.price)).size > 1
-            ? { "@type": "AggregateOffer", priceCurrency: "NPR", lowPrice: Math.min(...priced.map((v) => v.price!)), highPrice: Math.max(...priced.map((v) => v.price!)), offerCount: priced.length, offers: priced.map(offer) }
-            : priced[0] ? offer(priced[0]) : undefined,
-        }}
-      />
+      {/* Google rejects a Product with no offers, reviews or rating, so "DM us for price"
+          products get no Product markup at all. */}
+      {priced.length > 0 && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: p.name,
+            description: p.description ?? undefined,
+            url: abs(paths.product(p.slug)),
+            image: p.images.map((i) => abs(i.large)),
+            brand: p.brand ? { "@type": "Brand", name: p.brand } : undefined,
+            category: p.category?.name,
+            offers: priced.length > 1 && new Set(priced.map((v) => v.price)).size > 1
+              ? { "@type": "AggregateOffer", priceCurrency: "NPR", lowPrice: Math.min(...priced.map((v) => v.price!)), highPrice: Math.max(...priced.map((v) => v.price!)), offerCount: priced.length, offers: priced.map(offer) }
+              : offer(priced[0]),
+          }}
+        />
+      )}
       <div className={`${wrap} pt-8 pb-16 sm:pt-10`}>
         <Crumbs items={crumbs} />
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">

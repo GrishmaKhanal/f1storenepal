@@ -5,8 +5,8 @@ import { ProductGrid, minPrice } from "@/components/ProductCard";
 import { getCatalog, getProducts, type ProductView } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Shop all F1 diecast, caps and gifts",
-  description: "Every F1 diecast model car, cap, keychain and Formula 1 gift in one place. Filter by team or category. Delivered to Kathmandu, Pokhara and all of Nepal.",
+  title: "Shop all F1 diecast cars, posters and gifts",
+  description: "Every F1 diecast model car, wall poster and Formula 1 gift in one place. Filter by team or category. Delivered to Kathmandu, Pokhara and all of Nepal.",
   // Filtered views (?team=, ?sort=) all point at the one canonical listing.
   alternates: { canonical: "/shop" },
 };
@@ -43,7 +43,7 @@ export default async function Shop({ searchParams }: PageProps<"/shop">) {
 
   return (
     <>
-      <PageHead crumbs={[["Shop", "/shop"]]} title="Shop all" intro="Diecast cars, caps and gifts from every team.">
+      <PageHead crumbs={[["Shop", "/shop"]]} title="Shop all" intro="Diecast cars, posters and gifts from every team.">
         <span className="font-mono text-xs text-faint">
           {ps.length} product{ps.length === 1 ? "" : "s"}
         </span>

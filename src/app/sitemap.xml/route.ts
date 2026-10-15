@@ -1,6 +1,6 @@
 import { getCatalog, getProducts } from "@/lib/data";
 import { abs, paths } from "@/lib/site";
-import { sitemapXml, type SitemapEntry } from "@/lib/sitemap";
+import { productEntry, sitemapXml, type SitemapEntry } from "@/lib/sitemap";
 
 // Prerendered like the sitemap.ts it replaces; the admin's updateTag calls expire it
 // along with the catalog data it reads.
@@ -23,13 +23,7 @@ export async function GET() {
   const entries: SitemapEntry[] = [
     ...listings,
     ...info,
-    ...products.map((p) => ({
-      url: abs(paths.product(p.slug)),
-      lastModified: p.updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-      images: p.images.slice(0, 3).map((i) => abs(i.large)),
-    })),
+    ...products.map(productEntry),
     ...teams.filter((t) => t.count).map((t) => ({ url: abs(paths.team(t.slug)), lastModified: t.updatedAt, priority: 0.8 })),
     ...drivers.filter((d) => d.count).map((d) => ({ url: abs(paths.driver(d.slug)), lastModified: d.updatedAt, priority: 0.8 })),
     // Every non-empty category has an indexable page (diecast too), not just accessories.

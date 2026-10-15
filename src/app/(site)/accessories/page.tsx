@@ -6,7 +6,7 @@ import { paths } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "F1 accessories and gifts",
-  description: "Formula 1 caps, keychains, display cases, posters, mugs and gift sets, delivered across Nepal.",
+  description: "F1 diecast model cars, wall posters and Formula 1 gifts, delivered across Nepal.",
   alternates: { canonical: "/accessories" },
 };
 

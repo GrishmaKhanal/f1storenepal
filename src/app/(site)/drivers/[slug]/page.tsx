@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { InstagramCta } from "@/components/chrome";
 import { Collection } from "@/components/Collection";
 import { getCatalog, getProducts, getSettings } from "@/lib/data";
+import { collectionDescription, collectionIntro, whatsSold, withF1 } from "@/lib/seo";
 import { paths } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -10,31 +11,38 @@ export async function generateStaticParams() {
 }
 
 async function load(slug: string) {
-  return (await getCatalog()).drivers.find((d) => d.slug === slug) ?? null;
+  const [{ drivers }, all] = await Promise.all([getCatalog(), getProducts()]);
+  const d = drivers.find((x) => x.slug === slug);
+  if (!d) return null;
+  const products = all.filter((p) => p.driver?.slug === d.slug);
+  return { d, products, generated: collectionIntro(products, { subject: d.name }) };
 }
 
 export async function generateMetadata({ params }: PageProps<"/drivers/[slug]">): Promise<Metadata> {
-  const d = await load((await params).slug);
-  if (!d) return {};
+  const [x, s] = await Promise.all([load((await params).slug), getSettings()]);
+  if (!x) return {};
+  const { d, products, generated } = x;
   return {
-    title: d.seoTitle || `${d.name} F1 diecast cars and merchandise`,
-    description: d.seoDescription || d.description || `Shop ${d.name}${d.team ? ` (${d.team.name})` : ""} diecast model cars, caps and gifts in Nepal. Delivered nationwide.`,
+    title: d.seoTitle || `${d.name} ${withF1(whatsSold(products) ?? "merchandise")}`,
+    description: d.seoDescription || d.description || collectionDescription(generated, `${d.name} F1 merchandise`, s.paymentMethods.map((m) => m.label)),
     alternates: { canonical: paths.driver(d.slug) },
   };
 }
 
 export default async function DriverPage({ params }: PageProps<"/drivers/[slug]">) {
   const { slug } = await params;
-  const [d, products, s] = await Promise.all([load(slug), getProducts(), getSettings()]);
-  if (!d) notFound();
+  const [x, s] = await Promise.all([load(slug), getSettings()]);
+  if (!x) notFound();
+  const { d, products, generated } = x;
   return (
     <Collection
       crumbs={[["Drivers", "/drivers"], [d.name, paths.driver(d.slug)]]}
       title={d.name}
-      intro={d.description ?? (d.team ? `#${d.number ?? ""} · ${d.team.name}` : null)}
+      intro={d.description || generated}
+      meta={[d.number != null && `#${d.number}`, d.team?.name].filter(Boolean).join(" · ")}
       accent={d.team?.color}
       url={paths.driver(d.slug)}
-      products={products.filter((p) => p.driver?.slug === d.slug)}
+      products={products}
       aside={<InstagramCta url={s.instagramUrl} handle={s.instagramHandle} text={`Want a ${d.name} piece we don't list?`} />}
     />
   );
